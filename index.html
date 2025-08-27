@@ -807,64 +807,65 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             }
         };
 
-       //Add EmailJS SDK 
+      // Add EmailJS SDK 
 
-    // Initialize EmailJS with your Public Key
-    (function() {
-        emailjs.init("a1nc1iLE9AZrQuHAx");
-    })();
+// Initialize EmailJS with your Public Key
+(function() {
+    emailjs.init("a1nc1iLE9AZrQuHAx");
+})();
 
-    // Contact form functionality with EmailJS
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
+// Contact form functionality with EmailJS
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('sendButton');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            if (formStatus) formStatus.classList.add('hidden');
+            
+           // Send email using EmailJS (without to_email parameter)
+emailjs.sendForm('service_36voick', 'template_iqprygq', contactForm)
+.then(function(response) {
+    console.log("EmailJS SUCCESS:", response);
+    // Success message
+    if (formStatus) {
+        formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+        formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+        formStatus.classList.add('bg-green-100', 'text-green-700');
+    }
+    contactForm.reset();
+}, function(error) {
+    console.error("EmailJS ERROR:", error);
+    // Error message
+    if (formStatus) {
+        formStatus.textContent = 'Oops! There was a problem sending your message.';
+        formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+        formStatus.classList.add('bg-red-100', 'text-red-700');
+    }
+})
+            .finally(function() {
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
                 
-                const submitButton = document.getElementById('sendButton');
-                const originalText = submitButton.textContent;
-                
-                // Show loading state
-                submitButton.textContent = 'Sending...';
-                submitButton.disabled = true;
-                if (formStatus) formStatus.classList.add('hidden');
-                
-                // Send email using EmailJS
-                emailjs.sendForm('service_36voick', 'template_iqprygq', contactForm)
-                    .then(function() {
-                        // Success message
-                        if (formStatus) {
-                            formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-                            formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-                            formStatus.classList.add('bg-green-100', 'text-green-700');
-                        }
-                        contactForm.reset();
-                    }, function(error) {
-                        // Error message
-                        if (formStatus) {
-                            formStatus.textContent = 'Oops! There was a problem sending your message. Please try again or email me directly.';
-                            formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
-                            formStatus.classList.add('bg-red-100', 'text-red-700');
-                        }
-                        console.error('EmailJS Error:', error);
-                    })
-                    .finally(function() {
-                        // Reset button
-                        submitButton.textContent = originalText;
-                        submitButton.disabled = false;
-                        
-                        // Hide status message after 5 seconds
-                        if (formStatus) {
-                            setTimeout(() => {
-                                formStatus.classList.add('hidden');
-                            }, 5000);
-                        }
-                    });
+                // Hide status message after 5 seconds
+                if (formStatus) {
+                    setTimeout(() => {
+                        formStatus.classList.add('hidden');
+                    }, 5000);
+                }
             });
-        }
-        }); 
+        });
+    }
+});
 
         // Page navigation
         document.addEventListener('DOMContentLoaded', function() {
