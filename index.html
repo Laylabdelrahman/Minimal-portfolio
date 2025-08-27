@@ -807,11 +807,14 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             }
         };
 
-      // Add EmailJS SDK 
-
-// Initialize EmailJS with your Public Key
+      // Initialize EmailJS with your NEW Public Key
 (function() {
-    emailjs.init("a1nc1iLE9AZrQuHAx");
+    try {
+        emailjs.init("19wqjbVwEGU-r_1BZ");
+        console.log("EmailJS initialized successfully with new public key");
+    } catch (error) {
+        console.error("EmailJS initialization failed:", error);
+    }
 })();
 
 // Contact form functionality with EmailJS
@@ -831,38 +834,50 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             if (formStatus) formStatus.classList.add('hidden');
             
-           // Send email using EmailJS (without to_email parameter)
-emailjs.sendForm('service_36voick', 'template_iqprygq', contactForm)
-.then(function(response) {
-    console.log("EmailJS SUCCESS:", response);
-    // Success message
-    if (formStatus) {
-        formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-        formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-        formStatus.classList.add('bg-green-100', 'text-green-700');
-    }
-    contactForm.reset();
-}, function(error) {
-    console.error("EmailJS ERROR:", error);
-    // Error message
-    if (formStatus) {
-        formStatus.textContent = 'Oops! There was a problem sending your message.';
-        formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
-        formStatus.classList.add('bg-red-100', 'text-red-700');
-    }
-})
-            .finally(function() {
-                // Reset button
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                
-                // Hide status message after 5 seconds
-                if (formStatus) {
-                    setTimeout(() => {
-                        formStatus.classList.add('hidden');
-                    }, 5000);
-                }
-            });
+            // Get form data for debugging
+            const formData = new FormData(contactForm);
+            console.log("Form data:", Object.fromEntries(formData));
+            console.log("Using Template ID: template_sbjvema");
+            
+            // Send email using EmailJS with NEW template ID
+            emailjs.sendForm('service_36voick', 'template_sbjvema', contactForm)
+                .then(function(response) {
+                    console.log("EmailJS SUCCESS:", response);
+                    // Success message
+                    if (formStatus) {
+                        formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                        formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                        formStatus.classList.add('bg-green-100', 'text-green-700');
+                    }
+                    contactForm.reset();
+                }, function(error) {
+                    console.error("EmailJS ERROR:", error);
+                    console.log("Error status:", error.status);
+                    console.log("Error text:", error.text);
+                    
+                    // Error message
+                    if (formStatus) {
+                        let errorMessage = 'Oops! There was a problem sending your message.';
+                        if (error.text) {
+                            errorMessage += ' Error: ' + error.text;
+                        }
+                        formStatus.textContent = errorMessage;
+                        formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                        formStatus.classList.add('bg-red-100', 'text-red-700');
+                    }
+                })
+                .finally(function() {
+                    // Reset button
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Hide status message after 8 seconds
+                    if (formStatus) {
+                        setTimeout(() => {
+                            formStatus.classList.add('hidden');
+                        }, 8000);
+                    }
+                });
         });
     }
 });
