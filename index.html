@@ -807,11 +807,13 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             }
         };
 
-      // Initialize EmailJS with your NEW Public Key
+      // Initialize EmailJS with your Public Key
 (function() {
     try {
         emailjs.init("19wqjbVwEGU-r_1BZ");
-        console.log("EmailJS initialized successfully with new public key");
+        console.log("EmailJS initialized successfully");
+        console.log("Using Service ID: service_y71r60a");
+        console.log("Using Template ID: template_ymr1fw4");
     } catch (error) {
         console.error("EmailJS initialization failed:", error);
     }
@@ -834,13 +836,8 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             if (formStatus) formStatus.classList.add('hidden');
             
-            // Get form data for debugging
-            const formData = new FormData(contactForm);
-            console.log("Form data:", Object.fromEntries(formData));
-            console.log("Using Template ID: template_sbjvema");
-            
-            // Send email using EmailJS with NEW template ID
-            emailjs.sendForm('service_36voick', 'template_sbjvema', contactForm)
+            // Send email using EmailJS with NEW service and template IDs
+            emailjs.sendForm('service_y71r60a', 'template_ymr1fw4', contactForm)
                 .then(function(response) {
                     console.log("EmailJS SUCCESS:", response);
                     // Success message
