@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* Page sections */
+        .page-section {
+            min-height: 100vh;
+            padding: 5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Project grid styles */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .project-card {
+            background: #f8f8f8;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transform: translateY(0);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #333;
+        }
+        
+        /* Navigation styles */
+        .nav-item {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a1a1a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+        opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        /* Project detail modal */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+        }
+        
+        .project-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f5f5f5;
+        }
+        
+        .close-modal:hover {
+            background: #eeeeee;
+        }
+        
+        /* Header with hamburger menu */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .desktop-nav {
+            display: none;
+        }
+        
+        .hamburger {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+        
+        .mobile-nav a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .mobile-nav a:hover {
+            padding-left: 1rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Project detail styles */
+        .modal-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-tech-list, .modal-features-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .modal-tech-list li, .modal-features-list li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .modal-tech-list li:before, .modal-features-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4a4a4a;
+        }
+        
+        /* Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: #1a1a1a;
+            z-index: 1001;
+            transition: width 0.2s ease;
+        }
+        
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: #1a1a1a;
+            transform: scale(1.3);
+        }
+        
+        /* Scroll down indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #4a4a4a;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2.5rem;
+            }
+            
+            .page-section {
+                padding: 5rem 1.5rem 2rem;
+            }
+            
+            .project-modal {
+                padding: 1rem;
+            }
+            
+            .modal-image {
+                height: 200px;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+            
+            .scroll-down {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+            
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
+            }
+            
+            .mobile-nav {
+                display: none;
+            }
+        }
+        .social-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    transition: all 0.3s ease;
+    font-size: 1.4rem;
+}
+
+.social-circle:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-circle.linkedin {
+    background-color: #0077b5;
+    color: white;
+}
+
+.social-circle.behance {
+    background: linear-gradient(45deg, #1769ff, #0057ff);
+    color: white;
+}
+
+.social-circle.github {
+    background-color: #333;
+    color: white;
+}
+    </style>
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="home"></div>
+        <div class="nav-dot" data-section="projects"></div>
+        <div class="nav-dot" data-section="about"></div>
+        <div class="nav-dot" data-section="contact"></div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header>
+        <div class="logo" data-section="home">portfolio.</div>
+        
+        <nav class="desktop-nav">
+            <div class="nav-item" data-section="home">Home</div>
+            <div class="nav-item" data-section="projects">Projects</div>
+            <div class="nav-item" data-section="about">About</div>
+            <div class="nav-item" data-section="contact">Contact</div>
+        </nav>
+        
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <button class="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="nav-item" data-section="home">Home</div>
+        <div class="nav-item" data-section="projects">Projects</div>
+        <div class="nav-item" data-section="about">About</div>
+        <div class="nav-item" data-section="contact">Contact</div>
+    </nav>
+    <div class="overlay"></div>
+
+    <!-- Home Section -->
+    <section id="home" class="page-section">
+        <div class="flex flex-col justify-center items-center px-4">
+            <h1 class="hero-text text-5xl md:text-7xl font-bold text-center mb-6 animate-in">
+                Hello, I'm <span class="border-b-4 border-black">Layla</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl text-center mb-10 animate-in delay-1">
+                I design and build digital experiences that are beautiful, functional, and meaningful.
+            </p>
+            <div class="animate-in delay-2">
+                <button class="bg-black text-white px-8 py-3 rounded-full font-medium" data-section="projects">
+                    View My Work <i class="ml-2 fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <span>Scroll down</span>
+            <i class="fas fa-chevron-down mt-2"></i>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="page-section">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 animate-in">My Projects</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mb-12 animate-in delay-1">
+                Here's a selection of my recent work. Each project represents a unique challenge and creative solution.
+            </p>
+            
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card animate-in" data-project="1">
+                    <div class="project-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Minimal UI Design</h3>
+                        <p class="text-gray-600">A clean interface design for a SaaS application</p>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card animate-in delay-1" data-project="2">
+                    <div class="project-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">E-Commerce App</h3>
+                        <p class="text-gray-600">Mobile shopping experience with intuitive UX</p>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card animate-in delay-2" data-project="3">
+                    <div class="project-image">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Developer Portfolio</h3>
+                        <p class="text-gray-600">Personal website with interactive elements</p>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card animate-in delay-3" data-project="4">
+                    <div class="project-image">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Art Direction</h3>
+                        <p class="text-gray-600">Visual identity for a tech startup</p>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card animate-in" data-project="5">
+                    <div class="project-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Data Visualization</h3>
+                        <p class="text-gray-600">Interactive dashboard for analytics</p>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card animate-in delay-1" data-project="6">
+                    <div class="project-image">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Photography Portfolio</h3>
+                        <p class="text-gray-600">Showcase for a professional photographer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page-section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 animate-in">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="animate-in delay-1">
+                    <p class="text-lg mb-6">
+                        I'm a designer and developer with a passion for creating intuitive, beautiful digital experiences.
+                    </p>
+                    <p class="text-lg mb-6">
+My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.                    </p>
+                    <p class="text-lg">
+When I’m not designing, I’m diving into AI, exploring new tech tools, or just chilling with music or a good series.                    </p>
+                </div>
+                <div class="animate-in delay-2">
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Skills</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="mb-2">UI/UX Design</p>
+                                <div class="h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-black rounded-full w-4/5"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-2">Web Development</p>
+                                <div class="h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-black rounded-full w-3/5"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-2">Figma</p>
+                                <div class="h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-black rounded-full w-4/5"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-2">GitHub</p>
+                                <div class="h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-black rounded-full w-3/4"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-2">Framer</p>
+                                <div class="h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-black rounded-full w-3/5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Contact Section -->
+<section id="contact" class="page-section bg-gray-50">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl font-bold mb-10 animate-in">Get In Touch</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="animate-in delay-1">
+                <p class="text-lg mb-6">
+                    Have a project in mind or just want to say hello? Feel free to reach out!
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 p-3 rounded-full mr-4 contact-icon">
+                            <i class="fas fa-envelope text-black"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Email</p>
+                            <p class="text-gray-600">laylabdelrahman20@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 p-3 rounded-full mr-4 contact-icon">
+                            <i class="fas fa-phone text-black"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Phone</p>
+                            <p class="text-gray-600">+961 76 304 363</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media Buttons -->
+                    <div class="pt-4">
+                        <div class="flex space-x-5">
+                            <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" target="_blank" class="social-circle linkedin">
+                                <i class="fab fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a href="https://www.behance.net/laylaabdulrahman" target="_blank" class="social-circle behance">
+                                <i class="fab fa-behance text-lg"></i>
+                            </a>
+                            <a href="https://github.com/Laylabdelrahman" target="_blank" class="social-circle github">
+                                <i class="fab fa-github text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="animate-in delay-2">
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block mb-2 font-medium">Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 font-medium">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 font-medium">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></textarea>
+                    </div>
+                    <button type="submit" id="sendButton" class="bg-black text-white px-6 py-3 rounded-lg font-medium w-full">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+     <footer class="bg-black text-white py-8 text-center">
+        <p>© Designed with <span class="heart">˚ʚ♡ɞ˚</span> by Layla</p>
+        <div class="flex justify-center mt-4 space-x-4">
+            <a href="https://www.behance.net/laylaabdulrahman" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+            <a href="https://github.com/Laylabdelrahman" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-figma"></i></a>
+            
+        </div>
+    </footer>
+    <!-- Project Modal -->
+    <div class="project-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-image" id="modal-image"></div>
+            <div class="modal-body">
+                <h3 class="text-2xl font-bold mb-4" id="modal-title">Project Title</h3>
+                <p class="text-lg mb-6" id="modal-description">
+                    Project description will appear here.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h4 class="font-semibold mb-3 text-lg">Technologies</h4>
+                        <ul class="modal-tech-list" id="modal-technologies">
+                            <li>Technology 1</li>
+                            <li>Technology 2</li>
+                            <li>Technology 3</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3 text-lg">Features</h4>
+                        <ul class="modal-features-list" id="modal-features">
+                            <li>Feature 1</li>
+                            <li>Feature 2</li>
+                            <li>Feature 3</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="#" class="bg-black text-white px-6 py-3 rounded-lg font-medium inline-block" id="modal-link">
+                    View Project <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Project data
+        const projects = {
+            1: {
+                title: "Minimal UI Design",
+                description: "A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations to create a visually appealing yet highly functional interface.",
+                technologies: ["Figma", "Sketch", "Adobe XD", "Illustrator"],
+                features: ["Responsive Design", "User-Friendly Navigation", "Consistent Design System", "Accessibility Compliance"],
+                icon: "fas fa-paint-brush",
+                link: "#"
+            },
+            2: {
+                title: "E-Commerce App",
+                description: "A mobile shopping application with intuitive UX that increased conversion rates by 35%. The app features a seamless checkout process, personalized recommendations, and a visually engaging product display.",
+                technologies: ["React Native", "Node.js", "MongoDB", "Stripe API"],
+                features: ["User Profiles", "Shopping Cart", "Payment Processing", "Order Tracking"],
+                icon: "fas fa-mobile-alt",
+                link: "#"
+            },
+            3: {
+                title: "Developer Portfolio",
+                description: "A personal website with interactive elements that showcases my development skills and projects. The site features smooth animations, a dark/light mode toggle, and a contact form with validation.",
+                technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS"],
+                features: ["Responsive Design", "Smooth Animations", "Contact Form", "Project Filtering"],
+                icon: "fas fa-laptop-code",
+                link: "#"
+            },
+            4: {
+                title: "Art Direction",
+                description: "Visual identity design for a tech startup including logo, color palette, typography, and brand guidelines. The project helped establish a cohesive brand presence across all platforms.",
+                technologies: ["Adobe Illustrator", "Photoshop", "InDesign", "After Effects"],
+                features: ["Logo Design", "Brand Guidelines", "Marketing Materials", "Social Media Assets"],
+                icon: "fas fa-palette",
+                link: "#"
+            },
+            5: {
+                title: "Data Visualization",
+                description: "An interactive dashboard for analytics that helps businesses make data-driven decisions. The dashboard features real-time data updates, customizable reports, and export functionality.",
+                technologies: ["D3.js", "React", "Python", "Chart.js"],
+                features: ["Real-time Updates", "Custom Reports", "Data Export", "User Permissions"],
+                icon: "fas fa-chart-line",
+                link: "#"
+            },
+            6: {
+                title: "Photography Portfolio",
+                description: "A showcase website for a professional photographer featuring a minimalist design that puts the focus on the imagery. The site includes filtering by category, full-screen lightbox viewing, and client proofing capabilities.",
+                technologies: ["JavaScript", "CSS Grid", "Lightbox JS", "PHP"],
+                features: ["Category Filtering", "Full-screen Lightbox", "Client Proofing", "Contact Form"],
+                icon: "fas fa-camera",
+                link: "#"
+            }
+        };
+
+        // Page navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.page-section');
+            const navItems = document.querySelectorAll('.nav-item');
+            const buttons = document.querySelectorAll('button[data-section]');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const logo = document.querySelector('.logo');
+            const progressBar = document.querySelector('.scroll-progress');
+            
+            // Function to scroll to section
+            function scrollToSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    updateActiveNav(sectionId);
+                }
+                
+                // Close mobile nav if open
+                closeMobileNav();
+            }
+            
+            // Update active navigation
+            function updateActiveNav(sectionId) {
+                // Update nav items
+                navItems.forEach(item => {
+                    if (item.getAttribute('data-section') === sectionId) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Update nav dots
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('data-section') === sectionId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Add event listeners to nav items
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const target = this.getAttribute('data-section');
+                    scrollToSection(target);
+                });
+            });
+            
+            // Add event listeners to buttons
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-section');
+                    scrollToSection(target);
+                });
+            });
+            
+            // Add event listeners to nav dots
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const target = this.getAttribute('data-section');
+                    scrollToSection(target);
+                });
+            });
+            
+            // Add event listener to logo
+            logo.addEventListener('click', function() {
+                scrollToSection('home');
+            });
+            
+            // Scroll progress indicator
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollPercent = (scrollTop / documentHeight) * 100;
+                
+                progressBar.style.width = scrollPercent + '%';
+                
+                // Update active section based on scroll position
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollTop >= sectionTop - 100 && scrollTop < sectionTop + sectionHeight - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                if (currentSection) {
+                    updateActiveNav(currentSection);
+                }
+            });
+            
+            // Project modal functionality
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectModal = document.querySelector('.project-modal');
+            const closeModal = document.querySelector('.close-modal');
+            
+            projectCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project');
+                    openProjectModal(projectId);
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                projectModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            projectModal.addEventListener('click', function(e) {
+                if (e.target === projectModal) {
+                    projectModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Function to open project modal with data
+            function openProjectModal(projectId) {
+                const project = projects[projectId];
+                if (!project) return;
+                
+                // Set modal content
+                document.getElementById('modal-title').textContent = project.title;
+                document.getElementById('modal-description').textContent = project.description;
+                document.getElementById('modal-link').setAttribute('href', project.link);
+                
+                // Set modal image with icon
+                const modalImage = document.getElementById('modal-image');
+                modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
+                modalImage.style.display = 'flex';
+                modalImage.style.alignItems = 'center';
+                modalImage.style.justifyContent = 'center';
+                modalImage.style.fontSize = '4rem';
+                modalImage.style.color = '#333';
+                modalImage.innerHTML = `<i class="${project.icon}"></i>`;
+                
+                // Set technologies list
+                const techList = document.getElementById('modal-technologies');
+                techList.innerHTML = '';
+                project.technologies.forEach(tech => {
+                    const li = document.createElement('li');
+                    li.textContent = tech;
+                    techList.appendChild(li);
+                });
+                
+                // Set features list
+                const featuresList = document.getElementById('modal-features');
+                featuresList.innerHTML = '';
+                project.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+                
+                // Show modal
+                projectModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Mobile navigation functionality
+            const hamburger = document.querySelector('.hamburger');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const closeBtn = document.querySelector('.close-btn');
+            const overlay = document.querySelector('.overlay');
+            
+            function openMobileNav() {
+                mobileNav.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeMobileNav() {
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            hamburger.addEventListener('click', openMobileNav);
+            closeBtn.addEventListener('click', closeMobileNav);
+            overlay.addEventListener('click', closeMobileNav);
+            
+            // Initialize first section as active
+            updateActiveNav('home');
+        });
+    </script>
+</body>
+</html>
