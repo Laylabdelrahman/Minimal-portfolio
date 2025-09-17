@@ -78,6 +78,13 @@
             justify-content: center;
             font-size: 3rem;
             color: #333;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         /* Navigation styles */
@@ -180,6 +187,185 @@
             background: #eeeeee;
         }
         
+        /* Modal image container */
+        .modal-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .modal-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .expand-image-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        
+        .expand-image-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+        
+        /* Fullscreen image viewer - FIXED */
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: auto;
+            padding: 60px 20px 20px;
+        }
+        
+        .image-viewer.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+         .image-viewer-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px; 
+        }
+        
+        #fullscreen-image {
+            max-width: 100%;
+            max-height: 70vh; 
+            width: auto;
+            height: auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            object-fit: contain;
+        }
+        
+        .close-viewer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        
+        .close-viewer:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .image-controls {
+            position: sticky;
+            bottom: 20px;
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 30px;
+        }
+        
+        .image-control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .image-control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .modal-image {
+                height: 200px;
+            }
+            
+            .expand-image-btn {
+                width: 35px;
+                height: 35px;
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .close-viewer {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .image-controls {
+                bottom: 10px;
+            }
+            
+            .image-control-btn {
+                width: 35px;
+                height: 35px;
+            }
+            
+            #fullscreen-image {
+                max-width: 95vw; 
+                max-height: 60vh; 
+            }
+            .image-viewer-content {
+                max-width: 95vw; 
+            }
+             .image-viewer {
+                padding: 50px 15px 15px;
+            }
+        }
+        
         /* Header with hamburger menu */
         header {
             position: fixed;
@@ -254,11 +440,10 @@
             padding-left: 1rem;
         }
 
-
         .bg-green-100 { background-color: #dcfce7; }
-.text-green-700 { color: #15803d; }
-.bg-red-100 { background-color: #fee2e2; }
-.text-red-700 { color: #b91c1c; }
+        .text-green-700 { color: #15803d; }
+        .bg-red-100 { background-color: #fee2e2; }
+        .text-red-700 { color: #b91c1c; }
         
         .overlay {
             position: fixed;
@@ -279,13 +464,6 @@
         }
         
         /* Project detail styles */
-        .modal-image {
-            height: 300px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 12px 12px 0 0;
-        }
-        
         .modal-body {
             padding: 2rem;
         }
@@ -347,10 +525,11 @@
         }
         
         .contact-icon-group {
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    margin: -0.5rem;
-}
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            margin: -0.5rem;
+        }
+        
         /* Scroll down indicator */
         .scroll-down {
             position: absolute;
@@ -385,10 +564,6 @@
                 padding: 1rem;
             }
             
-            .modal-image {
-                height: 200px;
-            }
-            
             .modal-body {
                 padding: 1.5rem;
             }
@@ -416,38 +591,39 @@
                 display: none;
             }
         }
+        
         .social-circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #f1f5f9;
-    color: #1e293b;
-    transition: all 0.3s ease;
-    font-size: 1.4rem;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            transition: all 0.3s ease;
+            font-size: 1.4rem;
+        }
 
-.social-circle:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
+        .social-circle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.social-circle.linkedin {
-    background-color: #0077b5;
-    color: white;
-}
+        .social-circle.linkedin {
+            background-color: #0077b5;
+            color: white;
+        }
 
-.social-circle.behance {
-    background: linear-gradient(45deg, #1769ff, #0057ff);
-    color: white;
-}
+        .social-circle.behance {
+            background: linear-gradient(45deg, #1769ff, #0057ff);
+            color: white;
+        }
 
-.social-circle.github {
-    background-color: #333;
-    color: white;
-}
+        .social-circle.github {
+            background-color: #333;
+            color: white;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-white">
@@ -523,7 +699,7 @@
                 <!-- Project 1 -->
                 <div class="project-card animate-in" data-project="1">
                     <div class="project-image">
-                        <i class="fas fa-paint-brush"></i>
+                        <img src="imgs/behance-detail.png" alt="Behance Project">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Minimal UI Design</h3>
@@ -726,11 +902,17 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             
         </div>
     </footer>
+    
     <!-- Project Modal -->
     <div class="project-modal">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
-            <div class="modal-image" id="modal-image"></div>
+            <div class="modal-image-container">
+                <div class="modal-image" id="modal-image"></div>
+                <button class="expand-image-btn" id="expand-image-btn">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
             <div class="modal-body">
                 <h3 class="text-2xl font-bold mb-4" id="modal-title">Project Title</h3>
                 <p class="text-lg mb-6" id="modal-description">
@@ -761,15 +943,35 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
         </div>
     </div>
 
+    <!-- Fullscreen Image Viewer -->
+    <div class="image-viewer">
+        <div class="image-viewer-content">
+            <img id="fullscreen-image" src="" alt="Fullscreen project image">
+            <div class="image-controls">
+                <button class="image-control-btn" id="zoom-in-btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="image-control-btn" id="zoom-out-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="image-control-btn" id="reset-zoom-btn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <button class="close-viewer">&times;</button>
+    </div>
+
     <script>
-        // Project data
+        // Project data - updated to include separate preview and modal images
         const projects = {
             1: {
                 title: "Minimal UI Design",
                 description: "A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations to create a visually appealing yet highly functional interface.",
                 technologies: ["Figma", "Sketch", "Adobe XD", "Illustrator"],
                 features: ["Responsive Design", "User-Friendly Navigation", "Consistent Design System", "Accessibility Compliance"],
-                icon: "fas fa-paint-brush",
+                previewImg: "imgs/behance-detail.png", // Same cover image for both
+                modalImg: "imgs/behance.png", // Different image for modal
                 link: "#"
             },
             2: {
@@ -814,79 +1016,122 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             }
         };
 
-      // Initialize EmailJS with your Public Key
-(function() {
-    try {
-        emailjs.init("19wqjbVwEGU-r_1BZ");
-        console.log("EmailJS initialized successfully");
-        console.log("Using Service ID: service_y71r60a");
-        console.log("Using Template ID: template_ymr1fw4");
-    } catch (error) {
-        console.error("EmailJS initialization failed:", error);
-    }
-})();
+        // Initialize EmailJS with your Public Key
+        (function() {
+            try {
+                emailjs.init("19wqjbVwEGU-r_1BZ");
+                console.log("EmailJS initialized successfully");
+                console.log("Using Service ID: service_y71r60a");
+                console.log("Using Template ID: template_ymr1fw4");
+            } catch (error) {
+                console.error("EmailJS initialization failed:", error);
+            }
+        })();
 
-// Contact form functionality with EmailJS
-document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
+        // Function to open fullscreen image viewer
+        function openImageViewer(imageUrl) {
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const imageViewer = document.querySelector('.image-viewer');
+            
+            // Create a new image to check dimensions
+            const testImage = new Image();
+            testImage.onload = function() {
+                // Set the image source
+                fullscreenImage.src = imageUrl;
+                
+                // Reset zoom and position
+                fullscreenImage.style.transform = 'scale(1)';
+                fullscreenImage.style.maxWidth = 'none';
+                fullscreenImage.style.maxHeight = 'none';
+                imageViewer.scrollTop = 0;
+                imageViewer.scrollLeft = 0;
+                
+                // Show the viewer
+                imageViewer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+            testImage.src = imageUrl;
+        }
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitButton = document.getElementById('sendButton');
-            const originalText = submitButton.textContent;
-            
-            // Show loading state
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-            if (formStatus) formStatus.classList.add('hidden');
-            
-            // Send email using EmailJS with NEW service and template IDs
-            emailjs.sendForm('service_y71r60a', 'template_ymr1fw4', contactForm)
-                .then(function(response) {
-                    console.log("EmailJS SUCCESS:", response);
-                    // Success message
-                    if (formStatus) {
-                        formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-                        formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-                        formStatus.classList.add('bg-green-100', 'text-green-700');
-                    }
-                    contactForm.reset();
-                }, function(error) {
-                    console.error("EmailJS ERROR:", error);
-                    console.log("Error status:", error.status);
-                    console.log("Error text:", error.text);
-                    
-                    // Error message
-                    if (formStatus) {
-                        let errorMessage = 'Oops! There was a problem sending your message.';
-                        if (error.text) {
-                            errorMessage += ' Error: ' + error.text;
-                        }
-                        formStatus.textContent = errorMessage;
-                        formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
-                        formStatus.classList.add('bg-red-100', 'text-red-700');
-                    }
-                })
-                .finally(function() {
-                    // Reset button
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                    
-                    // Hide status message after 8 seconds
-                    if (formStatus) {
-                        setTimeout(() => {
-                            formStatus.classList.add('hidden');
-                        }, 8000);
-                    }
-                });
-        });
-    }
-});
+        // Function to close fullscreen image viewer
+        function closeImageViewer() {
+            const imageViewer = document.querySelector('.image-viewer');
+            imageViewer.classList.remove('active');
+            document.body.style.overflow = 'hidden'; // Keep hidden because modal is still open
+        }
 
-        // Page navigation
+        // Function to open project modal with data
+        function openProjectModal(projectId) {
+            const project = projects[projectId];
+            if (!project) return;
+            
+            const modalImage = document.getElementById('modal-image');
+            const expandImageBtn = document.getElementById('expand-image-btn');
+            const modalImageUrl = project.modalImg || project.previewImg;
+            
+            // Set modal content
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-description').textContent = project.description;
+            document.getElementById('modal-link').setAttribute('href', project.link);
+            
+            if (modalImageUrl) {
+                // Use the modal-specific image
+                modalImage.style.background = `url('${modalImageUrl}') center/cover no-repeat`;
+                modalImage.setAttribute('data-full-image', modalImageUrl);
+                modalImage.innerHTML = ''; // Clear any icon content
+                
+                // Show expand button
+                expandImageBtn.style.display = 'flex';
+                
+                // Add click event to modal image for expansion
+                modalImage.onclick = function() {
+                    openImageViewer(modalImageUrl);
+                };
+                
+                // Add click event to expand button
+                expandImageBtn.onclick = function(e) {
+                    e.stopPropagation(); // Prevent triggering the modal image click
+                    openImageViewer(modalImageUrl);
+                };
+            } else {
+                // Fall back to icon if no images available
+                modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
+                modalImage.style.display = 'flex';
+                modalImage.style.alignItems = 'center';
+                modalImage.style.justifyContent = 'center';
+                modalImage.style.fontSize = '4rem';
+                modalImage.style.color = '#333';
+                modalImage.innerHTML = `<i class="${project.icon}"></i>`;
+                modalImage.onclick = null;
+                
+                // Hide expand button
+                expandImageBtn.style.display = 'none';
+            }
+            
+            // Set technologies list
+            const techList = document.getElementById('modal-technologies');
+            techList.innerHTML = '';
+            project.technologies.forEach(tech => {
+                const li = document.createElement('li');
+                li.textContent = tech;
+                techList.appendChild(li);
+            });
+            
+            // Set features list
+            const featuresList = document.getElementById('modal-features');
+            featuresList.innerHTML = '';
+            project.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+            
+            // Show modal
+            const projectModal = document.querySelector('.project-modal');
+            projectModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.page-section');
             const navItems = document.querySelectorAll('.nav-item');
@@ -894,6 +1139,42 @@ document.addEventListener('DOMContentLoaded', function() {
             const navDots = document.querySelectorAll('.nav-dot');
             const logo = document.querySelector('.logo');
             const progressBar = document.querySelector('.scroll-progress');
+            
+            // Project modal functionality
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectModal = document.querySelector('.project-modal');
+            const closeModal = document.querySelector('.close-modal');
+            
+            // Fullscreen image viewer elements
+            const imageViewer = document.querySelector('.image-viewer');
+            const closeViewerBtn = document.querySelector('.close-viewer');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const zoomInBtn = document.getElementById('zoom-in-btn');
+            const zoomOutBtn = document.getElementById('zoom-out-btn');
+            const resetZoomBtn = document.getElementById('reset-zoom-btn');
+            
+            let currentScale = 1;
+            
+            // Zoom functionality
+            zoomInBtn.addEventListener('click', function() {
+                currentScale += 0.25;
+                fullscreenImage.style.transform = `scale(${currentScale})`;
+            });
+            
+            zoomOutBtn.addEventListener('click', function() {
+                if (currentScale > 0.5) {
+                    currentScale -= 0.25;
+                    fullscreenImage.style.transform = `scale(${currentScale})`;
+                }
+            });
+            
+            resetZoomBtn.addEventListener('click', function() {
+                currentScale = 1;
+                fullscreenImage.style.transform = 'scale(1)';
+                // Scroll to top when resetting zoom
+                imageViewer.scrollTop = 0;
+                imageViewer.scrollLeft = 0;
+            });
             
             // Function to scroll to section
             function scrollToSection(sectionId) {
@@ -982,11 +1263,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Project modal functionality
-            const projectCards = document.querySelectorAll('.project-card');
-            const projectModal = document.querySelector('.project-modal');
-            const closeModal = document.querySelector('.close-modal');
-            
+            // Project card click events
             projectCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const projectId = this.getAttribute('data-project');
@@ -994,6 +1271,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
             
+            // Close modal button
             closeModal.addEventListener('click', function() {
                 projectModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1007,47 +1285,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Function to open project modal with data
-            function openProjectModal(projectId) {
-                const project = projects[projectId];
-                if (!project) return;
-                
-                // Set modal content
-                document.getElementById('modal-title').textContent = project.title;
-                document.getElementById('modal-description').textContent = project.description;
-                document.getElementById('modal-link').setAttribute('href', project.link);
-                
-                // Set modal image with icon
-                const modalImage = document.getElementById('modal-image');
-                modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
-                modalImage.style.display = 'flex';
-                modalImage.style.alignItems = 'center';
-                modalImage.style.justifyContent = 'center';
-                modalImage.style.fontSize = '4rem';
-                modalImage.style.color = '#333';
-                modalImage.innerHTML = `<i class="${project.icon}"></i>`;
-                
-                // Set technologies list
-                const techList = document.getElementById('modal-technologies');
-                techList.innerHTML = '';
-                project.technologies.forEach(tech => {
-                    const li = document.createElement('li');
-                    li.textContent = tech;
-                    techList.appendChild(li);
+            // Close image viewer button
+            closeViewerBtn.addEventListener('click', closeImageViewer);
+            
+            // Close image viewer when clicking outside
+            imageViewer.addEventListener('click', function(e) {
+                if (e.target === imageViewer) {
+                    closeImageViewer();
+                }
+            });
+            
+            // Close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
+                    closeImageViewer();
+                }
+                if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+                    projectModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Contact form functionality with EmailJS
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitButton = document.getElementById('sendButton');
+                    const originalText = submitButton.textContent;
+                    
+                    // Show loading state
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+                    if (formStatus) formStatus.classList.add('hidden');
+                    
+                    // Send email using EmailJS with NEW service and template IDs
+                    emailjs.sendForm('service_y71r60a', 'template_ymr1fw4', contactForm)
+                        .then(function(response) {
+                            console.log("EmailJS SUCCESS:", response);
+                            // Success message
+                            if (formStatus) {
+                                formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                                formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                                formStatus.classList.add('bg-green-100', 'text-green-700');
+                            }
+                            contactForm.reset();
+                        }, function(error) {
+                            console.error("EmailJS ERROR:", error);
+                            console.log("Error status:", error.status);
+                            console.log("Error text:", error.text);
+                            
+                            // Error message
+                            if (formStatus) {
+                                let errorMessage = 'Oops! There was a problem sending your message.';
+                                if (error.text) {
+                                    errorMessage += ' Error: ' + error.text;
+                                }
+                                formStatus.textContent = errorMessage;
+                                formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                                formStatus.classList.add('bg-red-100', 'text-red-700');
+                            }
+                        })
+                        .finally(function() {
+                            // Reset button
+                            submitButton.textContent = originalText;
+                            submitButton.disabled = false;
+                            
+                            // Hide status message after 8 seconds
+                            if (formStatus) {
+                                setTimeout(() => {
+                                    formStatus.classList.add('hidden');
+                                }, 8000);
+                            }
+                        });
                 });
-                
-                // Set features list
-                const featuresList = document.getElementById('modal-features');
-                featuresList.innerHTML = '';
-                project.features.forEach(feature => {
-                    const li = document.createElement('li');
-                    li.textContent = feature;
-                    featuresList.appendChild(li);
-                });
-                
-                // Show modal
-                projectModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
             }
             
             // Mobile navigation functionality
