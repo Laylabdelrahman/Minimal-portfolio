@@ -187,7 +187,7 @@
             background: #eeeeee;
         }
         
-        /* Modal image container */
+        /* Modal image container - FIXED SIZING */
         .modal-image-container {
             position: relative;
             overflow: hidden;
@@ -195,11 +195,16 @@
         }
         
         .modal-image {
-            height: 300px;
-            background-size: cover;
+            height: 250px;
+            background-size: contain;
             background-position: center;
-            cursor: zoom-in;
+            background-repeat: no-repeat;
+            background-color: #f8f8f8;
+            cursor: pointer;
             transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .modal-image:hover {
@@ -229,106 +234,104 @@
             transform: scale(1.1);
         }
         
-        /* Fullscreen image viewer - FIXED */
-        .image-viewer {
+        /* New Popup Page for Images - COMPLETELY REDESIGNED */
+        .image-popup {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            background: #ffffff;
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            overflow: auto;
-            padding: 60px 20px 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         
-        .image-viewer.active {
+        .image-popup.active {
             opacity: 1;
             visibility: visible;
         }
         
-         .image-viewer-content {
-            position: relative;
+        .image-popup-header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e5e5e5;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 800px; 
+            z-index: 10;
         }
         
-        #fullscreen-image {
-            max-width: 100%;
-            max-height: 70vh; 
-            width: auto;
-            height: auto;
-            display: block;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            object-fit: contain;
+        .image-popup-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
         }
         
-        .close-viewer {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
+        .close-popup {
+            background: none;
             border: none;
-            color: white;
             font-size: 2rem;
             cursor: pointer;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            z-index: 10;
-        }
-        
-        .close-viewer:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-        
-        .image-controls {
-            position: sticky;
-            bottom: 20px;
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 30px;
-        }
-        
-        .image-control-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
+            color: #666;
             width: 40px;
             height: 40px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            border-radius: 50%;
             transition: all 0.3s ease;
         }
         
-        .image-control-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .close-popup:hover {
+            background: #f0f0f0;
+            color: #333;
         }
         
+        .image-popup-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .popup-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .image-description {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        
+        .image-description h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        
+        .image-description p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Mobile responsive fixes */
         @media (max-width: 768px) {
             .modal-image {
-                height: 200px;
+                height: 180px;
             }
             
             .expand-image-btn {
@@ -336,33 +339,37 @@
                 height: 35px;
                 bottom: 10px;
                 right: 10px;
+                font-size: 0.9rem;
             }
             
-            .close-viewer {
-                top: 10px;
-                right: 10px;
-                width: 40px;
-                height: 40px;
+            .image-popup-header {
+                padding: 1rem;
             }
             
-            .image-controls {
-                bottom: 10px;
+            .image-popup-title {
+                font-size: 1.2rem;
             }
             
-            .image-control-btn {
+            .close-popup {
                 width: 35px;
                 height: 35px;
+                font-size: 1.5rem;
             }
             
-            #fullscreen-image {
-                max-width: 95vw; 
-                max-height: 60vh; 
+            .image-popup-content {
+                padding: 1rem;
             }
-            .image-viewer-content {
-                max-width: 95vw; 
+            
+            .popup-image {
+                border-radius: 8px;
             }
-             .image-viewer {
-                padding: 50px 15px 15px;
+            
+            .image-description {
+                padding: 1rem;
+            }
+            
+            .image-description h3 {
+                font-size: 1.1rem;
             }
         }
         
@@ -702,7 +709,7 @@
                         <img src="imgs/behance-detail.png" alt="Behance Project">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Minimal UI Design</h3>
+                        <h3 class="text-xl font-semibold mb-2">SaaS Habit Tracker App Concept</h3>
                         <p class="text-gray-600">A clean interface design for a SaaS application</p>
                     </div>
                 </div>
@@ -777,7 +784,7 @@
                     <p class="text-lg mb-6">
 My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.                    </p>
                     <p class="text-lg">
-When I’m not designing, I’m diving into AI, exploring new tech tools, or just chilling with music or a good series.                    </p>
+When I'm not designing, I'm diving into AI, exploring new tech tools, or just chilling with music or a good series.                    </p>
                 </div>
                 <div class="animate-in delay-2">
                     <div class="mt-8">
@@ -937,42 +944,39 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
                     </div>
                 </div>
                 <a href="#" class="bg-black text-white px-6 py-3 rounded-lg font-medium inline-block" id="modal-link">
-                    View Project <i class="ml-2 fas fa-arrow-right"></i>
+                    View Project on Behance <i class="ml-2 fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Fullscreen Image Viewer -->
-    <div class="image-viewer">
-        <div class="image-viewer-content">
-            <img id="fullscreen-image" src="" alt="Fullscreen project image">
-            <div class="image-controls">
-                <button class="image-control-btn" id="zoom-in-btn">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <button class="image-control-btn" id="zoom-out-btn">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button class="image-control-btn" id="reset-zoom-btn">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
+    <!-- New Image Popup Page -->
+    <div class="image-popup">
+        <div class="image-popup-header">
+            <h2 class="image-popup-title">Minimal UI Design</h2>
+            <button class="close-popup">&times;</button>
+        </div>
+        <div class="image-popup-content">
+            <img id="popup-image" class="popup-image" src="" alt="Project details">
+            <div class="image-description">
+                <h3>Project Overview</h3>
+                <p>This minimal UI design project showcases a clean and intuitive interface for a SaaS application. The design focuses on user experience and productivity while maintaining visual appeal through careful typography and spacing choices.</p>
             </div>
         </div>
-        <button class="close-viewer">&times;</button>
     </div>
 
     <script>
         // Project data - updated to include separate preview and modal images
         const projects = {
             1: {
-                title: "Minimal UI Design",
+                title: "SaaS Habit Tracker App Concept",
                 description: "A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations to create a visually appealing yet highly functional interface.",
-                technologies: ["Figma", "Sketch", "Adobe XD", "Illustrator"],
-                features: ["Responsive Design", "User-Friendly Navigation", "Consistent Design System", "Accessibility Compliance"],
+                technologies: ["Figma"],
+                features: ["Responsive Design", "User-Friendly Navigation", "Consistent Design System"],
                 previewImg: "imgs/behance-detail.png", // Same cover image for both
-                modalImg: "imgs/behance.png", // Different image for modal
-                link: "#"
+                modalImg: "imgs/behance-detail.png", // Use the same image for consistency
+                fullImg: "imgs/behance.png", // Full detail image for popup
+                link: "https://www.behance.net/gallery/234745311/Momentum-Habit-Tracker-App"
             },
             2: {
                 title: "E-Commerce App",
@@ -1028,36 +1032,28 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             }
         })();
 
-        // Function to open fullscreen image viewer
-        function openImageViewer(imageUrl) {
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            const imageViewer = document.querySelector('.image-viewer');
+        // Function to open image popup page
+        function openImagePopup(imageUrl, projectTitle) {
+            const imagePopup = document.querySelector('.image-popup');
+            const popupImage = document.getElementById('popup-image');
+            const popupTitle = document.querySelector('.image-popup-title');
             
-            // Create a new image to check dimensions
-            const testImage = new Image();
-            testImage.onload = function() {
-                // Set the image source
-                fullscreenImage.src = imageUrl;
-                
-                // Reset zoom and position
-                fullscreenImage.style.transform = 'scale(1)';
-                fullscreenImage.style.maxWidth = 'none';
-                fullscreenImage.style.maxHeight = 'none';
-                imageViewer.scrollTop = 0;
-                imageViewer.scrollLeft = 0;
-                
-                // Show the viewer
-                imageViewer.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            };
-            testImage.src = imageUrl;
+            // Set the title
+            popupTitle.textContent = projectTitle;
+            
+            // Set the image source
+            popupImage.src = imageUrl;
+            
+            // Show the popup
+            imagePopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Function to close fullscreen image viewer
-        function closeImageViewer() {
-            const imageViewer = document.querySelector('.image-viewer');
-            imageViewer.classList.remove('active');
-            document.body.style.overflow = 'hidden'; // Keep hidden because modal is still open
+        // Function to close image popup
+        function closeImagePopup() {
+            const imagePopup = document.querySelector('.image-popup');
+            imagePopup.classList.remove('active');
+            document.body.style.overflow = 'hidden'; // Keep hidden because modal might still be open
         }
 
         // Function to open project modal with data
@@ -1075,23 +1071,26 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             document.getElementById('modal-link').setAttribute('href', project.link);
             
             if (modalImageUrl) {
-                // Use the modal-specific image
-                modalImage.style.background = `url('${modalImageUrl}') center/cover no-repeat`;
-                modalImage.setAttribute('data-full-image', modalImageUrl);
-                modalImage.innerHTML = ''; // Clear any icon content
+                // Use the modal-specific image with proper sizing
+                modalImage.style.background = `url('${modalImageUrl}') center/contain no-repeat`;
+                modalImage.style.backgroundColor = '#f8f8f8';
+                modalImage.setAttribute('data-full-image', project.fullImg || modalImageUrl);
+                modalImage.innerHTML = '';
                 
                 // Show expand button
                 expandImageBtn.style.display = 'flex';
                 
-                // Add click event to modal image for expansion
+                // Add click event to modal image for expansion - opens new popup page
                 modalImage.onclick = function() {
-                    openImageViewer(modalImageUrl);
+                    const fullImageUrl = project.fullImg || modalImageUrl;
+                    openImagePopup(fullImageUrl, project.title);
                 };
                 
                 // Add click event to expand button
                 expandImageBtn.onclick = function(e) {
-                    e.stopPropagation(); // Prevent triggering the modal image click
-                    openImageViewer(modalImageUrl);
+                    e.stopPropagation();
+                    const fullImageUrl = project.fullImg || modalImageUrl;
+                    openImagePopup(fullImageUrl, project.title);
                 };
             } else {
                 // Fall back to icon if no images available
@@ -1145,36 +1144,9 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
             const projectModal = document.querySelector('.project-modal');
             const closeModal = document.querySelector('.close-modal');
             
-            // Fullscreen image viewer elements
-            const imageViewer = document.querySelector('.image-viewer');
-            const closeViewerBtn = document.querySelector('.close-viewer');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            const zoomInBtn = document.getElementById('zoom-in-btn');
-            const zoomOutBtn = document.getElementById('zoom-out-btn');
-            const resetZoomBtn = document.getElementById('reset-zoom-btn');
-            
-            let currentScale = 1;
-            
-            // Zoom functionality
-            zoomInBtn.addEventListener('click', function() {
-                currentScale += 0.25;
-                fullscreenImage.style.transform = `scale(${currentScale})`;
-            });
-            
-            zoomOutBtn.addEventListener('click', function() {
-                if (currentScale > 0.5) {
-                    currentScale -= 0.25;
-                    fullscreenImage.style.transform = `scale(${currentScale})`;
-                }
-            });
-            
-            resetZoomBtn.addEventListener('click', function() {
-                currentScale = 1;
-                fullscreenImage.style.transform = 'scale(1)';
-                // Scroll to top when resetting zoom
-                imageViewer.scrollTop = 0;
-                imageViewer.scrollLeft = 0;
-            });
+            // Image popup functionality
+            const imagePopup = document.querySelector('.image-popup');
+            const closePopupBtn = document.querySelector('.close-popup');
             
             // Function to scroll to section
             function scrollToSection(sectionId) {
@@ -1285,20 +1257,20 @@ When I’m not designing, I’m diving into AI, exploring new tech tools, or jus
                 }
             });
             
-            // Close image viewer button
-            closeViewerBtn.addEventListener('click', closeImageViewer);
+            // Close image popup button
+            closePopupBtn.addEventListener('click', closeImagePopup);
             
-            // Close image viewer when clicking outside
-            imageViewer.addEventListener('click', function(e) {
-                if (e.target === imageViewer) {
-                    closeImageViewer();
+            // Close image popup when clicking outside
+            imagePopup.addEventListener('click', function(e) {
+                if (e.target === imagePopup) {
+                    closeImagePopup();
                 }
             });
             
             // Close with Escape key
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && imageViewer.classList.contains('active')) {
-                    closeImageViewer();
+                if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
+                    closeImagePopup();
                 }
                 if (e.key === 'Escape' && projectModal.classList.contains('active')) {
                     projectModal.classList.remove('active');
