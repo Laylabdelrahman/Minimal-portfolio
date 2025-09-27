@@ -27,6 +27,59 @@
             scroll-behavior: smooth;
         }
         
+        /* Arabic Matrix Effect for Layla Text */
+        .matrix-layla {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            color: #9d00ff;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px #9d00ff;
+            animation: matrix-flicker 1s infinite;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes matrix-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Background particles for hero section */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(157, 0, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
         /* Page sections */
         .page-section {
             min-height: 100vh;
@@ -34,25 +87,28 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
         
-        /* Project grid styles */
+        /* Project grid styles - UPDATED */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr); /* Changed from 3 to 2 columns */
+            gap: 2.5rem; /* Slightly increased gap for better spacing */
             margin-top: 2rem;
         }
         
         @media (max-width: 1024px) {
             .project-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr); /* Keep 2 columns on tablets */
+                gap: 2rem;
             }
         }
         
         @media (max-width: 768px) {
             .project-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 1 column on mobile */
+                gap: 1.5rem;
             }
         }
         
@@ -70,8 +126,9 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
+        /* UPDATED: Larger project images for better preview */
         .project-image {
-            height: 200px;
+            height: 280px; /* Increased from 200px to 280px */
             background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
             display: flex;
             align-items: center;
@@ -195,7 +252,7 @@
         }
         
         .modal-image {
-            height: 250px;
+            height: 300px; /* Slightly increased for better viewing */
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -331,7 +388,7 @@
         /* Mobile responsive fixes */
         @media (max-width: 768px) {
             .modal-image {
-                height: 180px;
+                height: 200px; /* Adjusted for mobile */
             }
             
             .expand-image-btn {
@@ -371,6 +428,16 @@
             .image-description h3 {
                 font-size: 1.1rem;
             }
+            
+            /* Mobile project images */
+            .project-image {
+                height: 220px; /* Slightly smaller on mobile but still larger than original */
+            }
+            
+            /* Adjust matrix effect on mobile */
+            .matrix-layla {
+                font-size: clamp(2.5rem, 7vw, 4rem);
+            }
         }
         
         /* Header with hamburger menu */
@@ -392,6 +459,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             cursor: pointer;
+            color: #000;
         }
         
         .desktop-nav {
@@ -647,7 +715,7 @@
 
     <!-- Header with Navigation -->
     <header>
-        <div class="logo" data-section="home">portfolio.</div>
+        <div class="logo" data-section="home">Layla.</div>
         
         <nav class="desktop-nav">
             <div class="nav-item" data-section="home">Home</div>
@@ -675,9 +743,10 @@
 
     <!-- Home Section -->
     <section id="home" class="page-section">
-        <div class="flex flex-col justify-center items-center px-4">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="flex flex-col justify-center items-center px-4 relative z-10">
             <h1 class="hero-text text-5xl md:text-7xl font-bold text-center mb-6 animate-in">
-                Hello, I'm <span class="border-b-4 border-black">Layla</span>
+                Hello, I'm <span class="matrix-layla" id="matrixLayla">Layla</span>
             </h1>
             <p class="text-xl text-gray-600 max-w-2xl text-center mb-10 animate-in delay-1">
                 I design and build digital experiences that are beautiful, functional, and meaningful.
@@ -688,10 +757,7 @@
                 </button>
             </div>
         </div>
-        <div class="scroll-down">
-            <span>Scroll down</span>
-            <i class="fas fa-chevron-down mt-2"></i>
-        </div>
+        
     </section>
 
     <!-- Projects Section -->
@@ -717,16 +783,15 @@
                 <!-- Project 2 -->
                 <div class="project-card animate-in delay-1" data-project="2">
                     <div class="project-image">
-                        <i class="fas fa-mobile-alt"></i>
+                        <img src="imgs/Cover.png" alt="Behance Project">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">E-Commerce App</h3>
-                        <p class="text-gray-600">Mobile shopping experience with intuitive UX</p>
+                        <h3 class="text-xl font-semibold mb-2">ComicPot</h3>
+                        <p class="text-gray-600">Mobile Reading experience with intuitive UI</p>
                     </div>
                 </div>
                 
-                <!-- Project 3 -->
-                <div class="project-card animate-in delay-2" data-project="3">
+                <!-- <div class="project-card animate-in delay-2" data-project="3">
                     <div class="project-image">
                         <i class="fas fa-laptop-code"></i>
                     </div>
@@ -734,10 +799,10 @@
                         <h3 class="text-xl font-semibold mb-2">Developer Portfolio</h3>
                         <p class="text-gray-600">Personal website with interactive elements</p>
                     </div>
-                </div>
+                </div> -->
                 
-                <!-- Project 4 -->
-                <div class="project-card animate-in delay-3" data-project="4">
+                
+                <!-- <div class="project-card animate-in delay-3" data-project="4">
                     <div class="project-image">
                         <i class="fas fa-palette"></i>
                     </div>
@@ -745,10 +810,10 @@
                         <h3 class="text-xl font-semibold mb-2">Art Direction</h3>
                         <p class="text-gray-600">Visual identity for a tech startup</p>
                     </div>
-                </div>
+                </div> -->
                 
-                <!-- Project 5 -->
-                <div class="project-card animate-in" data-project="5">
+                
+                <!-- <div class="project-card animate-in" data-project="5">
                     <div class="project-image">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -756,10 +821,10 @@
                         <h3 class="text-xl font-semibold mb-2">Data Visualization</h3>
                         <p class="text-gray-600">Interactive dashboard for analytics</p>
                     </div>
-                </div>
+                </div> -->
                 
-                <!-- Project 6 -->
-                <div class="project-card animate-in delay-1" data-project="6">
+                
+                <!--  <div class="project-card animate-in delay-1" data-project="6">
                     <div class="project-image">
                         <i class="fas fa-camera"></i>
                     </div>
@@ -767,65 +832,60 @@
                         <h3 class="text-xl font-semibold mb-2">Photography Portfolio</h3>
                         <p class="text-gray-600">Showcase for a professional photographer</p>
                     </div>
-                </div>
+                </div> -->
+               
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="page-section">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold mb-10 animate-in">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="animate-in delay-1">
-                    <p class="text-lg mb-6">
-                        I'm a designer and developer with a passion for creating intuitive, beautiful digital experiences.
-                    </p>
-                    <p class="text-lg mb-6">
-My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.                    </p>
-                    <p class="text-lg">
-When I'm not designing, I'm diving into AI, exploring new tech tools, or just chilling with music or a good series.                    </p>
-                </div>
-                <div class="animate-in delay-2">
-                    <div class="mt-8">
-                        <h3 class="text-xl font-semibold mb-4">Skills</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <p class="mb-2">UI/UX Design</p>
-                                <div class="h-2 bg-gray-200 rounded-full">
-                                    <div class="h-2 bg-black rounded-full w-4/5"></div>
-                                </div>
+  <!-- About Section -->
+<section id="about" class="page-section">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl font-bold mb-10 animate-in">About Me</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Left Column - Text -->
+            <div class="animate-in delay-1">
+                <p class="text-lg mb-6">
+                    I'm a designer and developer with a passion for creating intuitive, beautiful digital experiences.
+                </p>
+                <p class="text-lg mb-6">
+                    My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.
+                </p>
+                <p class="text-lg mb-8">
+                    When I'm not designing, I'm diving into AI, exploring new tech tools, or just chilling with music or a good series.
+                </p>
+            </div>
+            
+            <!-- Right Column - Skills -->
+            <div class="animate-in delay-2">
+                <div class="md:mt-0">
+                    <h3 class="text-xl font-semibold mb-4">Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="mb-2">UI/UX Design</p>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-black rounded-full w-4/5"></div>
                             </div>
-                            <div>
-                                <p class="mb-2">Web Development</p>
-                                <div class="h-2 bg-gray-200 rounded-full">
-                                    <div class="h-2 bg-black rounded-full w-3/5"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-2">Figma</p>
-                                <div class="h-2 bg-gray-200 rounded-full">
-                                    <div class="h-2 bg-black rounded-full w-4/5"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-2">GitHub</p>
-                                <div class="h-2 bg-gray-200 rounded-full">
-                                    <div class="h-2 bg-black rounded-full w-3/4"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-2">Framer</p>
-                                <div class="h-2 bg-gray-200 rounded-full">
-                                    <div class="h-2 bg-black rounded-full w-3/5"></div>
-                                </div>
+                        </div>
+                        <div>
+                            <p class="mb-2">Figma</p>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-black rounded-full w-4/5"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Resume Button -->
+                <div class="animate-in delay-3 mt-8 text-center md:text-left">
+                    <a href="resume/CV.pdf" target="_blank" class="bg-black text-white px-8 py-3 rounded-full font-medium inline-block">
+                        View My Resume <i class="ml-2 fas fa-external-link-alt"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
       <!-- Contact Section -->
 <section id="contact" class="page-section bg-gray-50">
@@ -958,14 +1018,71 @@ When I'm not designing, I'm diving into AI, exploring new tech tools, or just ch
         </div>
         <div class="image-popup-content">
             <img id="popup-image" class="popup-image" src="" alt="Project details">
-            <div class="image-description">
-                <h3>Project Overview</h3>
-                <p>This minimal UI design project showcases a clean and intuitive interface for a SaaS application. The design focuses on user experience and productivity while maintaining visual appeal through careful typography and spacing choices.</p>
-            </div>
+            
         </div>
     </div>
 
     <script>
+        // Arabic Matrix Effect for Layla Text
+        const matrixLayla = document.getElementById('matrixLayla');
+        const heroParticles = document.getElementById('heroParticles');
+        
+        // Create floating particles for hero section
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = particle.style.height = Math.random() * 4 + 2 + 'px';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    heroParticles.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.remove();
+                        }
+                    }, 8000);
+                }, i * 100);
+            }
+        }
+        
+        setInterval(createParticles, 3000);
+        createParticles();
+        
+        // Arabic Matrix effect - Using only Layla's letters
+        function createMatrixRain() {
+            const chars = 'ليلىلىليىلليىل'; // Only the letters from "Layla" in Arabic
+            
+            const matrixInterval = setInterval(() => {
+                const randomChar = chars[Math.floor(Math.random() * chars.length)];
+                const originalText = matrixLayla.textContent;
+                const randomIndex = Math.floor(Math.random() * originalText.length);
+                
+                if (Math.random() < 0.15) { // 15% chance to change a character
+                    const newText = originalText.split('');
+                    newText[randomIndex] = randomChar;
+                    matrixLayla.textContent = newText.join('');
+                    
+                    setTimeout(() => {
+                        matrixLayla.textContent = 'Layla';
+                    }, 150);
+                }
+            }, 80);
+        }
+        
+        // Start the matrix effect
+        createMatrixRain();
+        
+        // Click to restart effect
+        matrixLayla.addEventListener('click', () => {
+            matrixLayla.style.animation = 'none';
+            setTimeout(() => {
+                matrixLayla.style.animation = 'matrix-flicker 1s infinite';
+            }, 10);
+        });
+
         // Project data - updated to include separate preview and modal images
         const projects = {
             1: {
@@ -979,12 +1096,14 @@ When I'm not designing, I'm diving into AI, exploring new tech tools, or just ch
                 link: "https://www.behance.net/gallery/234745311/Momentum-Habit-Tracker-App"
             },
             2: {
-                title: "E-Commerce App",
-                description: "A mobile shopping application with intuitive UX that increased conversion rates by 35%. The app features a seamless checkout process, personalized recommendations, and a visually engaging product display.",
-                technologies: ["React Native", "Node.js", "MongoDB", "Stripe API"],
-                features: ["User Profiles", "Shopping Cart", "Payment Processing", "Order Tracking"],
-                icon: "fas fa-mobile-alt",
-                link: "#"
+                title: "ComicPot",
+                description: "ComicPot is a mobile app designed for comic, manga, and manhwa enthusiasts. It offers a smooth reading experience with features like seamless onboarding, smart discovery, a personalized library, detailed reader stats, and a reward system with coins to unlock more chapters.",
+                technologies: ["Figma", "AI"],
+                features: ["User Profiles", "Coins shop", "Payment Processing", "Reading Streak"],
+                previewImg: "imgs/Cover.png", // Same cover image for both
+                modalImg: "imgs/Cover.png", // Use the same image for consistency
+                fullImg: "imgs/ComicPot.png", // Full detail image for popup
+                link: "https://www.behance.net/gallery/235352771/ComicPot"
             },
             3: {
                 title: "Developer Portfolio",
