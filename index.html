@@ -791,16 +791,16 @@
                     </div>
                 </div>
                 
-                <!-- <div class="project-card animate-in delay-2" data-project="3">
+                <!-- NEW PROJECT 3 - Website Project -->
+                <div class="project-card animate-in delay-2" data-project="3">
                     <div class="project-image">
-                        <i class="fas fa-laptop-code"></i>
+                       <img src="imgs/Rose-cover.png" alt="Website Project">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Developer Portfolio</h3>
-                        <p class="text-gray-600">Personal website with interactive elements</p>
+                        <h3 class="text-xl font-semibold mb-2">Baked Rose</h3>
+                        <p class="text-gray-600">A Responsive digital bakery that feels like home baking</p>
                     </div>
-                </div> -->
-                
+                </div>
                 
                 <!-- <div class="project-card animate-in delay-3" data-project="4">
                     <div class="project-image">
@@ -1106,12 +1106,14 @@
                 link: "https://www.behance.net/gallery/235352771/ComicPot"
             },
             3: {
-                title: "Developer Portfolio",
-                description: "A personal website with interactive elements that showcases my development skills and projects. The site features smooth animations, a dark/light mode toggle, and a contact form with validation.",
-                technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS"],
-                features: ["Responsive Design", "Smooth Animations", "Contact Form", "Project Filtering"],
-                icon: "fas fa-laptop-code",
-                link: "#"
+                title: "Baked Rose",
+                description: "A responsive recipe platform where Razan shares her home baking creations. Features smart admin tools for her, beautiful recipe browsing for visitors, and a warm, pink-themed design that makes every recipe feel oven-fresh.",
+                technologies: ["Figma", "PHP", "HTML", "JavaScript", "Tailwind CSS", "MySQL"],
+                features: ["Responsive Design", "Easy navigation", "Smart Role Switching", "Instant Comment Kitchen"],
+                previewImg: "imgs/Rose-cover.png", // Same cover image for both
+                modalImg: "imgs/Rose-cover.png", // Use the same image for consistency
+                fullImg: "imgs/Baked-Rose.png", // Full detail image for popup
+                websiteLink: "https://baked-rose.lovestoblog.com/?i=1" // Add this property for website projects
             },
             4: {
                 title: "Art Direction",
@@ -1183,11 +1185,20 @@
             const modalImage = document.getElementById('modal-image');
             const expandImageBtn = document.getElementById('expand-image-btn');
             const modalImageUrl = project.modalImg || project.previewImg;
+            const modalLink = document.getElementById('modal-link');
             
             // Set modal content
             document.getElementById('modal-title').textContent = project.title;
             document.getElementById('modal-description').textContent = project.description;
-            document.getElementById('modal-link').setAttribute('href', project.link);
+            
+            // Check if this is a website project and update the button text accordingly
+            if (project.websiteLink) {
+                modalLink.setAttribute('href', project.websiteLink);
+                modalLink.innerHTML = 'View Website Online <i class="ml-2 fas fa-external-link-alt"></i>';
+            } else {
+                modalLink.setAttribute('href', project.link);
+                modalLink.innerHTML = 'View Project on Behance <i class="ml-2 fas fa-arrow-right"></i>';
+            }
             
             if (modalImageUrl) {
                 // Use the modal-specific image with proper sizing
