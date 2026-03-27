@@ -1449,9 +1449,9 @@
             
             const modalImage = document.getElementById('modal-image');
             const imgUrl = project.modalImg || project.previewImg;
+            const fullImageUrl = project.fullImg || imgUrl;
             
             if (imgUrl) {
-                // Fixed: Properly set background image
                 modalImage.style.backgroundImage = `url('${imgUrl}')`;
                 modalImage.style.backgroundSize = 'contain';
                 modalImage.style.backgroundPosition = 'center';
@@ -1459,16 +1459,13 @@
                 modalImage.style.backgroundColor = '#f8f8f8';
                 modalImage.innerHTML = '';
                 document.getElementById('expand-image-btn').style.display = 'flex';
-                modalImage.setAttribute('data-full-image', project.fullImg || imgUrl);
                 
                 modalImage.onclick = () => {
-                    const fullImageUrl = project.fullImg || imgUrl;
                     openImagePopup(fullImageUrl, project.title);
                 };
                 
                 document.getElementById('expand-image-btn').onclick = (e) => {
                     e.stopPropagation();
-                    const fullImageUrl = project.fullImg || imgUrl;
                     openImagePopup(fullImageUrl, project.title);
                 };
             } else {
