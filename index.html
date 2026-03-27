@@ -112,14 +112,13 @@
         }
         
         /* Hero Section Typography Hierarchy - Balanced */
-       .hero-greeting {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #1a1a1a;
-    /* font-style: italic;  REMOVED */
-    margin-bottom: 1rem;
-}
+        .hero-greeting {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
         
         body.dark-mode .hero-greeting {
             color: #ffffff;
@@ -128,7 +127,7 @@
         .hero-role {
             font-size: clamp(1.1rem, 3.5vw, 1.5rem);
             font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: #4a4a4a;
         }
         
@@ -136,120 +135,106 @@
             color: #b0b0b0;
         }
         
-       .hero-description {
-    font-size: clamp(0.95rem, 2.8vw, 1.2rem);
-    font-weight: 400;
-    color: #666;
-    max-width: 850px;
-    margin: 0 auto;
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
-}
-        
-        body.dark-mode .hero-description {
-            color: #999;
+        /* Random Shapes Background */
+        .random-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
-        
-      /* Random Shapes Background - Light Mode */
-.random-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
 
-.circle {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: rgba(157, 0, 255, 0.06);
-    top: 15%;
-    left: 5%;
-    animation: floatShape 8s ease-in-out infinite;
-}
+        .circle {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(157, 0, 255, 0.06);
+            top: 15%;
+            left: 5%;
+            animation: floatShape 8s ease-in-out infinite;
+        }
 
-.square {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: rgba(59, 130, 246, 0.06);
-    top: 70%;
-    right: 8%;
-    transform: rotate(15deg);
-    animation: floatShape 10s ease-in-out infinite reverse;
-}
+        .square {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.06);
+            top: 70%;
+            right: 8%;
+            transform: rotate(15deg);
+            animation: floatShape 10s ease-in-out infinite reverse;
+        }
 
-.zigzag {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    bottom: 20%;
-    left: 85%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(244, 63, 94, 0.06),
-        rgba(244, 63, 94, 0.06) 15px,
-        transparent 15px,
-        transparent 30px
-    );
-    transform: rotate(20deg);
-    animation: floatShape 12s ease-in-out infinite;
-}
+        .zigzag {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 85%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(244, 63, 94, 0.06),
+                rgba(244, 63, 94, 0.06) 15px,
+                transparent 15px,
+                transparent 30px
+            );
+            transform: rotate(20deg);
+            animation: floatShape 12s ease-in-out infinite;
+        }
 
-.triangle {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 86px solid rgba(254, 114, 169, 0.06);
-    top: 80%;
-    left: 20%;
-    animation: floatShape 9s ease-in-out infinite;
-}
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86px solid rgba(254, 114, 169, 0.06);
+            top: 80%;
+            left: 20%;
+            animation: floatShape 9s ease-in-out infinite;
+        }
 
-.dot-pattern {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    top: 40%;
-    right: 15%;
-    background-image: radial-gradient(rgba(107, 167, 165, 0.08) 2px, transparent 2px);
-    background-size: 20px 20px;
-    animation: floatShape 7s ease-in-out infinite;
-}
+        .dot-pattern {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 15%;
+            background-image: radial-gradient(rgba(107, 167, 165, 0.08) 2px, transparent 2px);
+            background-size: 20px 20px;
+            animation: floatShape 7s ease-in-out infinite;
+        }
 
-/* Dark Mode - Brighter, more vibrant colors */
-body.dark-mode .circle {
-    background: rgba(157, 0, 255, 0.15);
-}
+        /* Dark Mode Shapes */
+        body.dark-mode .circle {
+            background: rgba(157, 0, 255, 0.15);
+        }
 
-body.dark-mode .square {
-    background: rgba(59, 130, 246, 0.15);
-}
+        body.dark-mode .square {
+            background: rgba(59, 130, 246, 0.15);
+        }
 
-body.dark-mode .zigzag {
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(244, 63, 94, 0.15),
-        rgba(244, 63, 94, 0.15) 15px,
-        transparent 15px,
-        transparent 30px
-    );
-}
+        body.dark-mode .zigzag {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(244, 63, 94, 0.15),
+                rgba(244, 63, 94, 0.15) 15px,
+                transparent 15px,
+                transparent 30px
+            );
+        }
 
-body.dark-mode .triangle {
-    border-bottom: 86px solid rgba(254, 114, 169, 0.15);
-}
+        body.dark-mode .triangle {
+            border-bottom: 86px solid rgba(254, 114, 169, 0.15);
+        }
 
-body.dark-mode .dot-pattern {
-    background-image: radial-gradient(rgba(107, 167, 165, 0.2) 2px, transparent 2px);
-}
+        body.dark-mode .dot-pattern {
+            background-image: radial-gradient(rgba(107, 167, 165, 0.2) 2px, transparent 2px);
+        }
         
         @keyframes floatShape {
             0% {
@@ -835,11 +820,6 @@ body.dark-mode .dot-pattern {
                 font-size: 0.9rem;
             }
             
-            .hero-description {
-                font-size: 0.95rem;
-                padding: 0 1rem;
-            }
-            
             .circle, .square, .zigzag, .triangle, .dot-pattern {
                 transform: scale(0.7);
             }
@@ -1119,39 +1099,30 @@ body.dark-mode .dot-pattern {
     </nav>
     <div class="overlay"></div>
 
-<!-- Home Section - Clean Typography Hierarchy -->
-<section id="home" class="page-section">
-    <div class="random-shapes">
-        <div class="circle"></div>
-        <div class="square"></div>
-        <div class="zigzag"></div>
-        <div class="triangle"></div>
-        <div class="dot-pattern"></div>
-    </div>
-    
-    <div class="flex flex-col justify-center items-center px-4 relative z-10 text-center">
-        <!-- Hello, I'm Layla -->
-        <h1 class="hero-greeting animate-in">Hello, I'm Layla</h1>
-        
-        <!-- Line 2: Role -->
-        <p class="hero-role animate-in delay-1">UI/UX Designer | Web & Mobile Enthusiast</p>
-        
-        <!-- Line 3: Descriptive line -->
-        <p class="hero-role animate-in delay-2">Designing for your wellbeing, hobbies, and everyday ease,</p>
-        
-        <!-- Line 4: Rainbow text -->
-        <p class="hero-role animate-in delay-2">
-            <span class="rainbow-text">One Pixel At A Time</span>
-        </p>
-        
-        <!-- CTA Button -->
-        <div class="animate-in delay-3 mt-8">
-            <button class="view-work-btn bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-medium transition-all hover:scale-105" data-section="projects">
-                View My Work <i class="ml-2 fas fa-arrow-right"></i>
-            </button>
+    <!-- Home Section -->
+    <section id="home" class="page-section">
+        <div class="random-shapes">
+            <div class="circle"></div>
+            <div class="square"></div>
+            <div class="zigzag"></div>
+            <div class="triangle"></div>
+            <div class="dot-pattern"></div>
         </div>
-    </div>
-</section>
+        
+        <div class="flex flex-col justify-center items-center px-4 relative z-10 text-center">
+            <h1 class="hero-greeting animate-in">Hello, I'm Layla</h1>
+            <p class="hero-role animate-in delay-1">UI/UX Designer | Web & Mobile Enthusiast</p>
+            <p class="hero-role animate-in delay-2">Designing for your wellbeing, hobbies, and everyday ease,</p>
+            <p class="hero-role animate-in delay-2">
+                <span class="rainbow-text">One Pixel At A Time</span>
+            </p>
+            <div class="animate-in delay-3 mt-8">
+                <button class="view-work-btn bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-medium transition-all hover:scale-105" data-section="projects">
+                    View My Work <i class="ml-2 fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- Projects Section -->
     <section id="projects" class="page-section">
@@ -1478,16 +1449,38 @@ body.dark-mode .dot-pattern {
             
             const modalImage = document.getElementById('modal-image');
             const imgUrl = project.modalImg || project.previewImg;
+            
             if (imgUrl) {
-                modalImage.style.background = `url('${imgUrl}') center/contain no-repeat`;
+                // Fixed: Properly set background image
+                modalImage.style.backgroundImage = `url('${imgUrl}')`;
+                modalImage.style.backgroundSize = 'contain';
+                modalImage.style.backgroundPosition = 'center';
+                modalImage.style.backgroundRepeat = 'no-repeat';
                 modalImage.style.backgroundColor = '#f8f8f8';
                 modalImage.innerHTML = '';
                 document.getElementById('expand-image-btn').style.display = 'flex';
-                modalImage.onclick = () => openImagePopup(project.fullImg || imgUrl, project.title);
+                modalImage.setAttribute('data-full-image', project.fullImg || imgUrl);
+                
+                modalImage.onclick = () => {
+                    const fullImageUrl = project.fullImg || imgUrl;
+                    openImagePopup(fullImageUrl, project.title);
+                };
+                
                 document.getElementById('expand-image-btn').onclick = (e) => {
                     e.stopPropagation();
-                    openImagePopup(project.fullImg || imgUrl, project.title);
+                    const fullImageUrl = project.fullImg || imgUrl;
+                    openImagePopup(fullImageUrl, project.title);
                 };
+            } else {
+                modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
+                modalImage.style.display = 'flex';
+                modalImage.style.alignItems = 'center';
+                modalImage.style.justifyContent = 'center';
+                modalImage.style.fontSize = '4rem';
+                modalImage.style.color = '#333';
+                modalImage.innerHTML = `<i class="${project.icon}"></i>`;
+                modalImage.onclick = null;
+                document.getElementById('expand-image-btn').style.display = 'none';
             }
             
             const techList = document.getElementById('modal-technologies');
