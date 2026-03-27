@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * {
             margin: 0;
@@ -27,57 +27,294 @@
             scroll-behavior: smooth;
         }
         
-        /* Arabic Matrix Effect for Layla Text */
-        .matrix-layla {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            color: #9d00ff;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 10px #9d00ff;
-            animation: matrix-flicker 1s infinite;
-            cursor: pointer;
-            user-select: none;
-            position: relative;
-            display: inline-block;
-            margin-left: 0.5rem;
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
         }
-
-        @keyframes matrix-flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        
+        body.dark-mode .project-card-horizontal {
+            background: #2a2a2a;
         }
-
-        /* Background particles for hero section */
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
+        
+        body.dark-mode .project-card-content p {
+            color: #cccccc;
         }
-
-        .particle {
-            position: absolute;
-            background: rgba(157, 0, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s linear infinite;
+        
+        body.dark-mode .project-tag {
+            background: rgba(255, 255, 255, 0.1);
         }
+        
+        body.dark-mode header {
+            background: rgba(26, 26, 26, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .logo {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .nav-item::after {
+            background: #ffffff;
+        }
+        
+        body.dark-mode .nav-dot {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        body.dark-mode .nav-dot.active {
+            background: #ffffff;
+        }
+        
+        body.dark-mode .close-modal {
+            background: #2a2a2a;
+            color: #ffffff;
+        }
+        
+        body.dark-mode .modal-content {
+            background: #2a2a2a;
+        }
+        
+        body.dark-mode #modal-description {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .modal-tech-list li:before, 
+        body.dark-mode .modal-features-list li:before {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .section-title {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .bg-gray-50 {
+            background-color: #252525;
+        }
+        
+        body.dark-mode .bg-gray-100 {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .border-gray-300 {
+            border-color: #3a3a3a;
+        }
+        
+        body.dark-mode input, 
+        body.dark-mode textarea {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #3a3a3a;
+        }
+        
+        body.dark-mode .text-gray-600 {
+            color: #cccccc;
+        }
+        
+        /* Hero Section Typography Hierarchy - Balanced */
+       .hero-greeting {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #1a1a1a;
+    /* font-style: italic;  REMOVED */
+    margin-bottom: 1rem;
+}
+        
+        body.dark-mode .hero-greeting {
+            color: #ffffff;
+        }
+        
+        .hero-role {
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+        
+        body.dark-mode .hero-role {
+            color: #b0b0b0;
+        }
+        
+       .hero-description {
+    font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+    font-weight: 400;
+    color: #666;
+    max-width: 850px;
+    margin: 0 auto;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+        
+        body.dark-mode .hero-description {
+            color: #999;
+        }
+        
+      /* Random Shapes Background - Light Mode */
+.random-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
 
-        @keyframes float {
+.circle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(157, 0, 255, 0.06);
+    top: 15%;
+    left: 5%;
+    animation: floatShape 8s ease-in-out infinite;
+}
+
+.square {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: rgba(59, 130, 246, 0.06);
+    top: 70%;
+    right: 8%;
+    transform: rotate(15deg);
+    animation: floatShape 10s ease-in-out infinite reverse;
+}
+
+.zigzag {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: 85%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(244, 63, 94, 0.06),
+        rgba(244, 63, 94, 0.06) 15px,
+        transparent 15px,
+        transparent 30px
+    );
+    transform: rotate(20deg);
+    animation: floatShape 12s ease-in-out infinite;
+}
+
+.triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86px solid rgba(254, 114, 169, 0.06);
+    top: 80%;
+    left: 20%;
+    animation: floatShape 9s ease-in-out infinite;
+}
+
+.dot-pattern {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 40%;
+    right: 15%;
+    background-image: radial-gradient(rgba(107, 167, 165, 0.08) 2px, transparent 2px);
+    background-size: 20px 20px;
+    animation: floatShape 7s ease-in-out infinite;
+}
+
+/* Dark Mode - Brighter, more vibrant colors */
+body.dark-mode .circle {
+    background: rgba(157, 0, 255, 0.15);
+}
+
+body.dark-mode .square {
+    background: rgba(59, 130, 246, 0.15);
+}
+
+body.dark-mode .zigzag {
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(244, 63, 94, 0.15),
+        rgba(244, 63, 94, 0.15) 15px,
+        transparent 15px,
+        transparent 30px
+    );
+}
+
+body.dark-mode .triangle {
+    border-bottom: 86px solid rgba(254, 114, 169, 0.15);
+}
+
+body.dark-mode .dot-pattern {
+    background-image: radial-gradient(rgba(107, 167, 165, 0.2) 2px, transparent 2px);
+}
+        
+        @keyframes floatShape {
             0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
+                transform: translateY(0px) rotate(0deg);
             }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
             100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
+                transform: translateY(0px) rotate(0deg);
             }
+        }
+        
+        /* Rainbow text animation */
+        .rainbow-text {
+            background: linear-gradient(90deg, #faa49e, #fdc47f, #f9fcac, #b0f8a2, #86f0fa, #b896fd, #fda9a3);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 3s linear infinite;
+            font-weight: 700;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        body.dark-mode .rainbow-text {
+            background: linear-gradient(90deg, #FF6B6B, #FFB86B, #FFE66D, #6BCF7F, #4D96FF, #9D4DFF, #FF6B6B);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        /* Dark mode toggle button in navbar */
+        .dark-mode-toggle {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         
         /* Page sections */
@@ -117,25 +354,25 @@
         }
         
         /* Project-specific hover effects */
-        .project-card-horizontal[data-project="1"]:hover {
-            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        .project-card-horizontal[data-project="5"]:hover {
+            box-shadow: 0 15px 30px rgba(136, 156, 255, 0.2);
         }
         .project-card-horizontal[data-project="2"]:hover {
             box-shadow: 0 15px 30px rgba(254, 114, 169, 0.2);
         }
-        .project-card-horizontal[data-project="3"]:hover {
-            box-shadow: 0 15px 30px rgba(244, 63, 94, 0.2);
+        .project-card-horizontal[data-project="1"]:hover {
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
         }
         .project-card-horizontal[data-project="4"]:hover {
             box-shadow: 0 15px 30px rgba(107, 167, 165, 0.2);
         }
-        .project-card-horizontal[data-project="5"]:hover {
-            box-shadow: 0 15px 30px rgba(136, 156, 255, 0.2);
+        .project-card-horizontal[data-project="3"]:hover {
+            box-shadow: 0 15px 30px rgba(244, 63, 94, 0.2);
         }
         
         /* Project-specific title colors */
-        .project-card-horizontal[data-project="1"] h3 {
-            background: linear-gradient(135deg, #3B82F6, #3B82F6);
+        .project-card-horizontal[data-project="5"] h3 {
+            background: linear-gradient(135deg, #889CFF, #4460E9);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -148,8 +385,8 @@
             color: transparent;
         }
         
-        .project-card-horizontal[data-project="3"] h3 {
-            background: linear-gradient(135deg, #F43F5E, #891336);
+        .project-card-horizontal[data-project="1"] h3 {
+            background: linear-gradient(135deg, #3B82F6, #3B82F6);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -162,17 +399,17 @@
             color: transparent;
         }
         
-        .project-card-horizontal[data-project="5"] h3 {
-            background: linear-gradient(135deg, #889CFF, #4460E9);
+        .project-card-horizontal[data-project="3"] h3 {
+            background: linear-gradient(135deg, #F43F5E, #891336);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         
         /* Project-specific tag colors */
-        .project-card-horizontal[data-project="1"] .project-tag {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3B82F6;
+        .project-card-horizontal[data-project="5"] .project-tag {
+            background: rgba(136, 156, 255, 0.1);
+            color: #4460E9;
         }
         
         .project-card-horizontal[data-project="2"] .project-tag {
@@ -180,9 +417,9 @@
             color: #FE72A9;
         }
         
-        .project-card-horizontal[data-project="3"] .project-tag {
-            background: rgba(244, 63, 94, 0.1);
-            color: #F43F5E;
+        .project-card-horizontal[data-project="1"] .project-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
         }
         
         .project-card-horizontal[data-project="4"] .project-tag {
@@ -190,9 +427,9 @@
             color: #6BA7A5;
         }
         
-        .project-card-horizontal[data-project="5"] .project-tag {
-            background: rgba(136, 156, 255, 0.1);
-            color: #4460E9;
+        .project-card-horizontal[data-project="3"] .project-tag {
+            background: rgba(244, 63, 94, 0.1);
+            color: #F43F5E;
         }
         
         .project-card-image {
@@ -268,6 +505,10 @@
             transition: width 0.3s ease;
         }
         
+        body.dark-mode .nav-item::after {
+            background: #ffffff;
+        }
+        
         .nav-item:hover::after {
             width: 100%;
         }
@@ -289,7 +530,7 @@
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
         
-        /* Project detail modal - ORIGINAL SIMPLE DESIGN */
+        /* Project detail modal */
         .project-modal {
             position: fixed;
             top: 0;
@@ -305,6 +546,10 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
             padding: 2rem;
+        }
+        
+        body.dark-mode .project-modal {
+            background: rgba(26, 26, 26, 0.98);
         }
         
         .project-modal.active {
@@ -351,7 +596,11 @@
             background: #eeeeee;
         }
         
-        /* Modal image container */
+        body.dark-mode .close-modal {
+            background: #2a2a2a;
+            color: #ffffff;
+        }
+        
         .modal-image-container {
             position: relative;
             overflow: hidden;
@@ -398,10 +647,13 @@
             transform: scale(1.1);
         }
         
-        /* Description styles */
         #modal-description {
             line-height: 1.6;
             color: #4a4a4a;
+        }
+        
+        body.dark-mode #modal-description {
+            color: #cccccc;
         }
         
         #modal-description p {
@@ -440,7 +692,22 @@
             color: #4a4a4a;
         }
         
-        /* Image Popup Page */
+        body.dark-mode .modal-tech-list li:before, 
+        body.dark-mode .modal-features-list li:before {
+            color: #ffffff;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+        
+        body.dark-mode .section-title {
+            color: #ffffff;
+        }
+        
         .image-popup {
             position: fixed;
             top: 0;
@@ -454,6 +721,10 @@
             transition: all 0.3s ease;
             overflow-y: auto;
             overflow-x: hidden;
+        }
+        
+        body.dark-mode .image-popup {
+            background: #1a1a1a;
         }
         
         .image-popup.active {
@@ -474,10 +745,19 @@
             z-index: 10;
         }
         
+        body.dark-mode .image-popup-header {
+            background: rgba(26, 26, 26, 0.95);
+            border-bottom-color: #3a3a3a;
+        }
+        
         .image-popup-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: #1a1a1a;
+        }
+        
+        body.dark-mode .image-popup-title {
+            color: #ffffff;
         }
         
         .close-popup {
@@ -500,6 +780,15 @@
             color: #333;
         }
         
+        body.dark-mode .close-popup {
+            color: #ccc;
+        }
+        
+        body.dark-mode .close-popup:hover {
+            background: #2a2a2a;
+            color: #fff;
+        }
+        
         .image-popup-content {
             padding: 2rem;
             max-width: 1200px;
@@ -515,7 +804,6 @@
             margin-bottom: 2rem;
         }
         
-        /* Mobile responsive */
         @media (max-width: 768px) {
             .project-card-horizontal {
                 flex-direction: column !important;
@@ -547,6 +835,15 @@
                 font-size: 0.9rem;
             }
             
+            .hero-description {
+                font-size: 0.95rem;
+                padding: 0 1rem;
+            }
+            
+            .circle, .square, .zigzag, .triangle, .dot-pattern {
+                transform: scale(0.7);
+            }
+            
             .image-popup-header {
                 padding: 1rem;
             }
@@ -564,17 +861,8 @@
             .image-popup-content {
                 padding: 1rem;
             }
-            
-            .popup-image {
-                border-radius: 8px;
-            }
-            
-            .matrix-layla {
-                font-size: clamp(2.5rem, 7vw, 4rem);
-            }
         }
         
-        /* Header styles */
         header {
             position: fixed;
             top: 0;
@@ -598,6 +886,8 @@
         
         .desktop-nav {
             display: none;
+            align-items: center;
+            gap: 2rem;
         }
         
         .hamburger {
@@ -606,6 +896,12 @@
             background: none;
             border: none;
             font-size: 1.5rem;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
         
         .mobile-nav {
@@ -623,6 +919,10 @@
             flex-direction: column;
         }
         
+        body.dark-mode .mobile-nav {
+            background: #2a2a2a;
+        }
+        
         .mobile-nav.active {
             right: 0;
         }
@@ -636,13 +936,30 @@
             cursor: pointer;
         }
         
-        .mobile-nav a {
+        .mobile-nav .nav-item {
             color: #1a1a1a;
             text-decoration: none;
             padding: 1rem 0;
             font-size: 1.2rem;
             font-weight: 500;
             border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        body.dark-mode .mobile-nav .nav-item {
+            color: #ffffff;
+            border-bottom-color: #3a3a3a;
+        }
+        
+        .dark-mode-toggle-mobile {
+            cursor: pointer;
+            margin-top: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        body.dark-mode .dark-mode-toggle-mobile {
+            border-bottom-color: #3a3a3a;
         }
         
         .overlay {
@@ -663,7 +980,6 @@
             visibility: visible;
         }
         
-        /* Scroll progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -675,7 +991,10 @@
             transition: width 0.2s ease;
         }
         
-        /* Navigation dots */
+        body.dark-mode .scroll-progress {
+            background: #ffffff;
+        }
+        
         .nav-dots {
             position: fixed;
             right: 2rem;
@@ -701,7 +1020,14 @@
             transform: scale(1.3);
         }
         
-        /* Social circles */
+        body.dark-mode .nav-dot {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        body.dark-mode .nav-dot.active {
+            background: #ffffff;
+        }
+        
         .social-circle {
             display: flex;
             align-items: center;
@@ -753,12 +1079,11 @@
             
             .desktop-nav {
                 display: flex;
-                gap: 2rem;
             }
         }
     </style>
 </head>
-<body class="min-h-screen bg-white">
+<body>
     <div class="scroll-progress"></div>
     
     <div class="nav-dots">
@@ -770,13 +1095,18 @@
 
     <header>
         <div class="logo" data-section="home">Layla.</div>
-        <nav class="desktop-nav">
-            <div class="nav-item" data-section="home">Home</div>
-            <div class="nav-item" data-section="projects">Projects</div>
-            <div class="nav-item" data-section="about">About</div>
-            <div class="nav-item" data-section="contact">Contact</div>
-        </nav>
-        <button class="hamburger"><i class="fas fa-bars"></i></button>
+        <div class="nav-right">
+            <nav class="desktop-nav">
+                <div class="nav-item" data-section="home">Home</div>
+                <div class="nav-item" data-section="projects">Projects</div>
+                <div class="nav-item" data-section="about">About</div>
+                <div class="nav-item" data-section="contact">Contact</div>
+            </nav>
+            <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+                <i class="fas fa-moon"></i>
+            </div>
+            <button class="hamburger"><i class="fas fa-bars"></i></button>
+        </div>
     </header>
 
     <nav class="mobile-nav">
@@ -785,28 +1115,45 @@
         <div class="nav-item" data-section="projects">Projects</div>
         <div class="nav-item" data-section="about">About</div>
         <div class="nav-item" data-section="contact">Contact</div>
+        <div class="dark-mode-toggle-mobile" onclick="toggleDarkMode()">Dark Mode</div>
     </nav>
     <div class="overlay"></div>
 
-    <!-- Home Section -->
-    <section id="home" class="page-section">
-        <div class="hero-particles" id="heroParticles"></div>
-        <div class="flex flex-col justify-center items-center px-4 relative z-10">
-            <h1 class="hero-text text-5xl md:text-7xl font-bold text-center mb-6 animate-in">
-                Hello, I'm <span class="matrix-layla" id="matrixLayla">Layla</span>
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl text-center mb-10 animate-in delay-1">
-                I design and build digital experiences that are beautiful, functional, and meaningful.
-            </p>
-            <div class="animate-in delay-2">
-                <button class="bg-black text-white px-8 py-3 rounded-full font-medium" data-section="projects">
-                    View My Work <i class="ml-2 fas fa-arrow-right"></i>
-                </button>
-            </div>
+<!-- Home Section - Clean Typography Hierarchy -->
+<section id="home" class="page-section">
+    <div class="random-shapes">
+        <div class="circle"></div>
+        <div class="square"></div>
+        <div class="zigzag"></div>
+        <div class="triangle"></div>
+        <div class="dot-pattern"></div>
+    </div>
+    
+    <div class="flex flex-col justify-center items-center px-4 relative z-10 text-center">
+        <!-- Hello, I'm Layla -->
+        <h1 class="hero-greeting animate-in">Hello, I'm Layla</h1>
+        
+        <!-- Line 2: Role -->
+        <p class="hero-role animate-in delay-1">UI/UX Designer | Web & Mobile Enthusiast</p>
+        
+        <!-- Line 3: Descriptive line -->
+        <p class="hero-role animate-in delay-2">Designing for your wellbeing, hobbies, and everyday ease,</p>
+        
+        <!-- Line 4: Rainbow text -->
+        <p class="hero-role animate-in delay-2">
+            <span class="rainbow-text">One Pixel At A Time</span>
+        </p>
+        
+        <!-- CTA Button -->
+        <div class="animate-in delay-3 mt-8">
+            <button class="view-work-btn bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-medium transition-all hover:scale-105" data-section="projects">
+                View My Work <i class="ml-2 fas fa-arrow-right"></i>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Projects Section - STACKED/HORIZONTAL LAYOUT with COLORS -->
+    <!-- Projects Section -->
     <section id="projects" class="page-section">
         <div class="projects-container">
             <h2 class="text-4xl font-bold mb-4 animate-in">My Projects</h2>
@@ -814,9 +1161,8 @@
                 Here's a selection of my recent work. Each project represents a unique challenge and creative solution.
             </p>
             
-            
- <!-- Project 1 - Lavender + Deep Blue Gradient -->
-            <div class="project-card-horizontal animate-in delay-3" data-project="5">
+            <!-- Project 5: catMOODZ -->
+            <div class="project-card-horizontal animate-in" data-project="5">
                 <div class="project-card-image">
                     <img src="imgs/catMOODZ-cover.png" alt="catMOODZ">
                 </div>
@@ -832,7 +1178,7 @@
                 </div>
             </div>
             
-            <!-- Project 2 - Pink + Green Gradient (Reverse layout) -->
+            <!-- Project 2: ComicPot (reverse) -->
             <div class="project-card-horizontal reverse animate-in delay-1" data-project="2">
                 <div class="project-card-image">
                     <img src="imgs/Cover.png" alt="ComicPot">
@@ -848,15 +1194,14 @@
                 </div>
             </div>
             
-
-            <!-- Project 3 - Blue -->
-            <div class="project-card-horizontal animate-in" data-project="1">
+            <!-- Project 1: SaaS Habit Tracker -->
+            <div class="project-card-horizontal animate-in delay-2" data-project="1">
                 <div class="project-card-image">
                     <img src="imgs/behance-detail.png" alt="SaaS Habit Tracker">
                 </div>
                 <div class="project-card-content">
                     <h3>SaaS Habit Tracker App Concept</h3>
-                    <p>A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations.</p>
+                    <p>A clean and intuitive interface design for a SaaS application focused on user productivity and experience.</p>
                     <div class="project-tags">
                         <span class="project-tag">Figma</span>
                         <span class="project-tag">UI/UX</span>
@@ -864,17 +1209,15 @@
                     </div>
                 </div>
             </div>
-
-           
             
-            <!-- Project 4 - Mint/Teal (Reverse layout) -->
+            <!-- Project 4: Finance Tracker (reverse) -->
             <div class="project-card-horizontal reverse animate-in delay-2" data-project="4">
                 <div class="project-card-image">
                     <img src="imgs/fincover.png" alt="Finance Tracker">
                 </div>
                 <div class="project-card-content">
                     <h3>Finance Tracker</h3>
-                    <p>Finance Tracker is a financial management concept created to facilitate a seamless and stress-free user experience. Your money, crystal clear. See balance, transfers, and withdrawals at a glance.</p>
+                    <p>Finance Tracker is a financial management concept created to facilitate a seamless and stress-free user experience. Your money, crystal clear.</p>
                     <div class="project-tags">
                         <span class="project-tag">Figma</span>
                         <span class="project-tag">Finance</span>
@@ -882,14 +1225,15 @@
                     </div>
                 </div>
             </div>
-             <!-- Project 5 - Rose + Burgundy Gradient -->
-            <div class="project-card-horizontal animate-in delay-2" data-project="3">
+            
+            <!-- Project 3: Baked Rose -->
+            <div class="project-card-horizontal animate-in delay-3" data-project="3">
                 <div class="project-card-image">
                     <img src="imgs/Rose-cover.png" alt="Baked Rose">
                 </div>
                 <div class="project-card-content">
                     <h3>Baked Rose</h3>
-                    <p>A responsive recipe platform where Razan shares her home baking creations. Features smart admin tools, beautiful recipe browsing, and a warm, pink-themed design that makes every recipe feel oven-fresh.</p>
+                    <p>A responsive recipe platform where Razan shares her home baking creations. Features smart admin tools, beautiful recipe browsing, and a warm, pink-themed design.</p>
                     <div class="project-tags">
                         <span class="project-tag">Figma</span>
                         <span class="project-tag">PHP</span>
@@ -898,9 +1242,6 @@
                     </div>
                 </div>
             </div>
-            
-           
-            
         </div>
     </section>
 
@@ -917,12 +1258,12 @@
                 <div class="animate-in delay-2">
                     <h3 class="text-xl font-semibold mb-4">Skills</h3>
                     <div class="space-y-6">
-                        <div><p class="mb-2">UI/UX Design</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
-                        <div><p class="mb-2">Figma</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
-                        <div><p class="mb-2">Shopify</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
+                        <div><p class="mb-2">UI/UX Design</p><div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"><div class="h-2 bg-black rounded-full w-4/5 dark:bg-white"></div></div></div>
+                        <div><p class="mb-2">Figma</p><div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"><div class="h-2 bg-black rounded-full w-4/5 dark:bg-white"></div></div></div>
+                        <div><p class="mb-2">Shopify</p><div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"><div class="h-2 bg-black rounded-full w-4/5 dark:bg-white"></div></div></div>
                     </div>
                     <div class="mt-8 text-center md:text-left">
-                        <a href="resume/Layla Abdulrahman.pdf" target="_blank" class="bg-black text-white px-8 py-3 rounded-full font-medium inline-block">View My Resume <i class="ml-2 fas fa-external-link-alt"></i></a>
+                        <a href="resume/Layla Abdulrahman.pdf" target="_blank" class="bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-full font-medium inline-block transition-all hover:scale-105">View My Resume <i class="ml-2 fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -930,15 +1271,15 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="page-section bg-gray-50">
+    <section id="contact" class="page-section bg-gray-50 dark:bg-gray-900">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-4xl font-bold mb-10 animate-in">Get In Touch</h2>
             <div class="grid md:grid-cols-2 gap-12">
                 <div class="animate-in delay-1">
                     <p class="text-lg mb-6">Have a project in mind or just want to say hello? Feel free to reach out!</p>
                     <div class="space-y-4">
-                        <div class="flex items-center"><div class="bg-gray-100 p-3 rounded-full mr-4"><i class="fas fa-envelope text-black"></i></div><div><p class="font-medium">Email</p><a href="mailto:laylabdelrahman20@gmail.com" class="text-gray-600 hover:text-blue-600">laylabdelrahman20@gmail.com</a></div></div>
-                        <div class="flex items-center"><div class="bg-gray-100 p-3 rounded-full mr-4"><i class="fas fa-phone text-black"></i></div><div><p class="font-medium">Phone</p><p class="text-gray-600">+961 76 304 363</p></div></div>
+                        <div class="flex items-center"><div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-full mr-4"><i class="fas fa-envelope text-black dark:text-white"></i></div><div><p class="font-medium">Email</p><a href="mailto:laylabdelrahman20@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">laylabdelrahman20@gmail.com</a></div></div>
+                        <div class="flex items-center"><div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-full mr-4"><i class="fas fa-phone text-black dark:text-white"></i></div><div><p class="font-medium">Phone</p><p class="text-gray-600 dark:text-gray-400">+961 76 304 363</p></div></div>
                         <div class="pt-4"><div class="flex space-x-5">
                             <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" target="_blank" class="social-circle linkedin"><i class="fab fa-linkedin-in text-lg"></i></a>
                             <a href="https://www.behance.net/laylaabdulrahman" target="_blank" class="social-circle behance"><i class="fab fa-behance text-lg"></i></a>
@@ -949,10 +1290,10 @@
                 </div>
                 <div class="animate-in delay-2">
                     <form id="contact-form" class="space-y-6">
-                        <div><label for="name" class="block mb-2 font-medium">Name</label><input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></div>
-                        <div><label for="email" class="block mb-2 font-medium">Email</label><input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></div>
-                        <div><label for="message" class="block mb-2 font-medium">Message</label><textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></textarea></div>
-                        <button type="submit" id="sendButton" class="bg-black text-white px-6 py-3 rounded-lg font-medium w-full">Send Message</button>
+                        <div><label for="name" class="block mb-2 font-medium">Name</label><input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white dark:bg-gray-800 dark:text-white"></div>
+                        <div><label for="email" class="block mb-2 font-medium">Email</label><input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white dark:bg-gray-800 dark:text-white"></div>
+                        <div><label for="message" class="block mb-2 font-medium">Message</label><textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white dark:bg-gray-800 dark:text-white"></textarea></div>
+                        <button type="submit" id="sendButton" class="bg-black text-white dark:bg-white dark:text-black px-6 py-3 rounded-lg font-medium w-full transition-all hover:scale-105">Send Message</button>
                         <div id="form-status" class="hidden p-4 rounded-lg text-center"></div>
                     </form>
                 </div>
@@ -970,7 +1311,7 @@
         </div>
     </footer>
     
-    <!-- Project Modal - ORIGINAL SIMPLE DESIGN -->
+    <!-- Project Modal -->
     <div class="project-modal">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
@@ -982,25 +1323,15 @@
             </div>
             <div class="modal-body">
                 <h3 class="text-2xl font-bold mb-4" id="modal-title">Project Title</h3>
-                <div class="text-lg mb-6" id="modal-description">
-                    Project description will appear here.
-                </div>
+                <div class="text-lg mb-6" id="modal-description"></div>
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <div>
-                        <h4 class="font-semibold mb-3 text-lg">Technologies</h4>
-                        <ul class="modal-tech-list" id="modal-technologies">
-                            <li>Technology 1</li>
-                            <li>Technology 2</li>
-                            <li>Technology 3</li>
-                        </ul>
+                        <h4 class="section-title">Technologies</h4>
+                        <ul class="modal-tech-list" id="modal-technologies"></ul>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-3 text-lg">Features</h4>
-                        <ul class="modal-features-list" id="modal-features">
-                            <li>Feature 1</li>
-                            <li>Feature 2</li>
-                            <li>Feature 3</li>
-                        </ul>
+                        <h4 class="section-title">Features</h4>
+                        <ul class="modal-features-list" id="modal-features"></ul>
                     </div>
                 </div>
                 <a href="#" class="bg-black text-white px-6 py-3 rounded-lg font-medium inline-block" id="modal-link">
@@ -1010,10 +1341,10 @@
         </div>
     </div>
 
-    <!-- Image Popup Page -->
+    <!-- Image Popup -->
     <div class="image-popup">
         <div class="image-popup-header">
-            <h2 class="image-popup-title">Minimal UI Design</h2>
+            <h2 class="image-popup-title">Project Image</h2>
             <button class="close-popup">&times;</button>
         </div>
         <div class="image-popup-content">
@@ -1022,46 +1353,34 @@
     </div>
 
     <script>
-        // Matrix effect and particles
-        const matrixLayla = document.getElementById('matrixLayla');
-        const heroParticles = document.getElementById('heroParticles');
-        
-        function createParticles() {
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.width = particle.style.height = Math.random() * 4 + 2 + 'px';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                    heroParticles.appendChild(particle);
-                    setTimeout(() => { if (particle.parentNode) particle.remove(); }, 8000);
-                }, i * 100);
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const toggleIcon = document.querySelector('.dark-mode-toggle i');
+            if (toggleIcon) {
+                if (isDark) {
+                    toggleIcon.className = 'fas fa-sun';
+                } else {
+                    toggleIcon.className = 'fas fa-moon';
+                }
+            }
+            
+            const mobileToggle = document.querySelector('.dark-mode-toggle-mobile');
+            if (mobileToggle) {
+                mobileToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
             }
         }
-        setInterval(createParticles, 3000);
-        createParticles();
         
-        function createMatrixRain() {
-            const chars = 'ليلىلىليىلليىل';
-            setInterval(() => {
-                const randomChar = chars[Math.floor(Math.random() * chars.length)];
-                const originalText = matrixLayla.textContent;
-                const randomIndex = Math.floor(Math.random() * originalText.length);
-                if (Math.random() < 0.15) {
-                    const newText = originalText.split('');
-                    newText[randomIndex] = randomChar;
-                    matrixLayla.textContent = newText.join('');
-                    setTimeout(() => { matrixLayla.textContent = 'Layla'; }, 150);
-                }
-            }, 80);
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            const toggleIcon = document.querySelector('.dark-mode-toggle i');
+            if (toggleIcon) toggleIcon.className = 'fas fa-sun';
+            const mobileToggle = document.querySelector('.dark-mode-toggle-mobile');
+            if (mobileToggle) mobileToggle.textContent = 'Light Mode';
         }
-        createMatrixRain();
-        matrixLayla.addEventListener('click', () => {
-            matrixLayla.style.animation = 'none';
-            setTimeout(() => { matrixLayla.style.animation = 'matrix-flicker 1s infinite'; }, 10);
-        });
 
         // Project data
         const projects = {
@@ -1081,7 +1400,7 @@
                 technologies: ["Figma", "AI"],
                 features: ["User Profiles", "Coins shop", "Payment Processing", "Reading Streak"],
                 previewImg: "imgs/Cover.png",
-                modalImg: "imgs/ComicPot.png",
+                modalImg: "imgs/Cover.png",
                 fullImg: "imgs/ComicPot.png",
                 link: "https://www.behance.net/gallery/235352771/ComicPot"
             },
@@ -1091,7 +1410,7 @@
                 technologies: ["Figma", "PHP", "HTML", "JavaScript", "Tailwind CSS", "MySQL"],
                 features: ["Responsive Design", "Easy navigation", "Smart Role Switching", "Instant Comment Kitchen"],
                 previewImg: "imgs/Rose-cover.png",
-                modalImg: "imgs/Baked-Rose.png",
+                modalImg: "imgs/Rose-cover.png",
                 fullImg: "imgs/Baked-Rose.png",
                 link: "https://www.behance.net/gallery/235747255/Baked-Rose"
             },
@@ -1126,75 +1445,49 @@
             }
         };
 
-        // EmailJS initialization
-        (function() { try { emailjs.init("19wqjbVwEGU-r_1BZ"); } catch(error) { console.error("EmailJS init failed:", error); } })();
+        emailjs.init("19wqjbVwEGU-r_1BZ");
 
-        // Function to open image popup
         function openImagePopup(imageUrl, projectTitle) {
-            const imagePopup = document.querySelector('.image-popup');
-            const popupImage = document.getElementById('popup-image');
-            const popupTitle = document.querySelector('.image-popup-title');
-            popupTitle.textContent = projectTitle;
-            popupImage.src = imageUrl;
-            imagePopup.classList.add('active');
+            const popup = document.querySelector('.image-popup');
+            document.getElementById('popup-image').src = imageUrl;
+            document.querySelector('.image-popup-title').textContent = projectTitle;
+            popup.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeImagePopup() {
-            const imagePopup = document.querySelector('.image-popup');
-            imagePopup.classList.remove('active');
+            document.querySelector('.image-popup').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Function to open project modal - ORIGINAL SIMPLE DESIGN
         function openProjectModal(projectId) {
             const project = projects[projectId];
             if (!project) return;
             
-            const modalImage = document.getElementById('modal-image');
-            const expandImageBtn = document.getElementById('expand-image-btn');
-            const modalImageUrl = project.modalImg || project.previewImg;
-            const modalLink = document.getElementById('modal-link');
-            
             document.getElementById('modal-title').textContent = project.title;
-            const descriptionElement = document.getElementById('modal-description');
-            descriptionElement.innerHTML = project.description;
+            document.getElementById('modal-description').innerHTML = project.description;
             
+            const link = document.getElementById('modal-link');
             if (project.link && project.link !== '#') {
-                modalLink.setAttribute('href', project.link);
-                modalLink.innerHTML = 'View Project on Behance <i class="ml-2 fas fa-arrow-right"></i>';
-                modalLink.style.display = 'inline-block';
+                link.href = project.link;
+                link.innerHTML = 'View Project on Behance <i class="ml-2 fas fa-arrow-right"></i>';
+                link.style.display = 'inline-block';
             } else {
-                modalLink.style.display = 'none';
+                link.style.display = 'none';
             }
             
-            if (modalImageUrl) {
-                modalImage.style.background = `url('${modalImageUrl}') center/contain no-repeat`;
+            const modalImage = document.getElementById('modal-image');
+            const imgUrl = project.modalImg || project.previewImg;
+            if (imgUrl) {
+                modalImage.style.background = `url('${imgUrl}') center/contain no-repeat`;
                 modalImage.style.backgroundColor = '#f8f8f8';
-                modalImage.setAttribute('data-full-image', project.fullImg || modalImageUrl);
                 modalImage.innerHTML = '';
-                expandImageBtn.style.display = 'flex';
-                
-                modalImage.onclick = function() {
-                    const fullImageUrl = project.fullImg || modalImageUrl;
-                    openImagePopup(fullImageUrl, project.title);
-                };
-                
-                expandImageBtn.onclick = function(e) {
+                document.getElementById('expand-image-btn').style.display = 'flex';
+                modalImage.onclick = () => openImagePopup(project.fullImg || imgUrl, project.title);
+                document.getElementById('expand-image-btn').onclick = (e) => {
                     e.stopPropagation();
-                    const fullImageUrl = project.fullImg || modalImageUrl;
-                    openImagePopup(fullImageUrl, project.title);
+                    openImagePopup(project.fullImg || imgUrl, project.title);
                 };
-            } else {
-                modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
-                modalImage.style.display = 'flex';
-                modalImage.style.alignItems = 'center';
-                modalImage.style.justifyContent = 'center';
-                modalImage.style.fontSize = '4rem';
-                modalImage.style.color = '#333';
-                modalImage.innerHTML = `<i class="${project.icon}"></i>`;
-                modalImage.onclick = null;
-                expandImageBtn.style.display = 'none';
             }
             
             const techList = document.getElementById('modal-technologies');
@@ -1213,41 +1506,44 @@
                 featuresList.appendChild(li);
             });
             
-            const modal = document.querySelector('.project-modal');
-            modal.classList.add('active');
+            document.querySelector('.project-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
+
         function closeModal() {
-            const modal = document.querySelector('.project-modal');
-            modal.classList.remove('active');
+            document.querySelector('.project-modal').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // DOM Content Loaded
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.page-section');
             const navItems = document.querySelectorAll('.nav-item');
             const navDots = document.querySelectorAll('.nav-dot');
             const logo = document.querySelector('.logo');
             const progressBar = document.querySelector('.scroll-progress');
-            const projectCards = document.querySelectorAll('.project-card-horizontal');
-            const closeModalBtn = document.querySelector('.close-modal');
-            const projectModal = document.querySelector('.project-modal');
-            const closePopupBtn = document.querySelector('.close-popup');
-            const imagePopup = document.querySelector('.image-popup');
+            const viewWorkBtn = document.querySelector('.view-work-btn');
             
             function scrollToSection(sectionId) {
                 const section = document.getElementById(sectionId);
-                if (section) { section.scrollIntoView({ behavior: 'smooth' }); updateActiveNav(sectionId); }
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    updateActiveNav(sectionId);
+                }
                 closeMobileNav();
             }
             
             function updateActiveNav(sectionId) {
-                navItems.forEach(item => { if (item.getAttribute('data-section') === sectionId) item.classList.add('active'); else item.classList.remove('active'); });
-                navDots.forEach(dot => { if (dot.getAttribute('data-section') === sectionId) dot.classList.add('active'); else dot.classList.remove('active'); });
+                navItems.forEach(item => {
+                    if (item.getAttribute('data-section') === sectionId) item.classList.add('active');
+                    else item.classList.remove('active');
+                });
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('data-section') === sectionId) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
             }
             
+            if (viewWorkBtn) viewWorkBtn.addEventListener('click', () => scrollToSection('projects'));
             navItems.forEach(item => item.addEventListener('click', () => scrollToSection(item.getAttribute('data-section'))));
             navDots.forEach(dot => dot.addEventListener('click', () => scrollToSection(dot.getAttribute('data-section'))));
             logo.addEventListener('click', () => scrollToSection('home'));
@@ -1265,15 +1561,19 @@
                 if (current) updateActiveNav(current);
             });
             
-            projectCards.forEach(card => card.addEventListener('click', () => openProjectModal(card.getAttribute('data-project'))));
-            closeModalBtn.addEventListener('click', closeModal);
-            projectModal.addEventListener('click', (e) => { if (e.target === projectModal) closeModal(); });
-            closePopupBtn.addEventListener('click', closeImagePopup);
-            imagePopup.addEventListener('click', (e) => { if (e.target === imagePopup) closeImagePopup(); });
+            document.querySelectorAll('.project-card-horizontal').forEach(card => {
+                card.addEventListener('click', () => openProjectModal(card.getAttribute('data-project')));
+            });
+            document.querySelector('.close-modal').addEventListener('click', closeModal);
+            document.querySelector('.project-modal').addEventListener('click', (e) => { if (e.target === document.querySelector('.project-modal')) closeModal(); });
+            document.querySelector('.close-popup').addEventListener('click', closeImagePopup);
+            document.querySelector('.image-popup').addEventListener('click', (e) => { if (e.target === document.querySelector('.image-popup')) closeImagePopup(); });
             
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && imagePopup.classList.contains('active')) closeImagePopup();
-                if (e.key === 'Escape' && projectModal.classList.contains('active')) closeModal();
+                if (e.key === 'Escape') {
+                    if (document.querySelector('.image-popup.active')) closeImagePopup();
+                    if (document.querySelector('.project-modal.active')) closeModal();
+                }
             });
             
             // Contact form
@@ -1293,7 +1593,7 @@
                             formStatus.classList.add('bg-green-100', 'text-green-700');
                             contactForm.reset();
                         })
-                        .catch((error) => {
+                        .catch(() => {
                             formStatus.textContent = 'Oops! There was a problem sending your message.';
                             formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
                             formStatus.classList.add('bg-red-100', 'text-red-700');
