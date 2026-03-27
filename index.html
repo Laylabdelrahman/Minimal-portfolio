@@ -90,58 +90,165 @@
             position: relative;
         }
         
-        /* Project grid styles - UPDATED */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Changed from 3 to 2 columns */
-            gap: 2.5rem; /* Slightly increased gap for better spacing */
-            margin-top: 2rem;
+        /* Stacked/Horizontal Project Cards */
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
         
-        @media (max-width: 1024px) {
-            .project-grid {
-                grid-template-columns: repeat(2, 1fr); /* Keep 2 columns on tablets */
-                gap: 2rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr; /* 1 column on mobile */
-                gap: 1.5rem;
-            }
-        }
-        
-        .project-card {
+        .project-card-horizontal {
+            display: flex;
+            flex-direction: row;
             background: #f8f8f8;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             transform: translateY(0);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
-        .project-card:hover {
+        .project-card-horizontal:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
-        /* UPDATED: Larger project images for better preview */
-        .project-image {
-            height: 280px; /* Increased from 200px to 280px */
+        /* Project-specific hover effects */
+        .project-card-horizontal[data-project="1"]:hover {
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+        }
+        .project-card-horizontal[data-project="2"]:hover {
+            box-shadow: 0 15px 30px rgba(254, 114, 169, 0.2);
+        }
+        .project-card-horizontal[data-project="3"]:hover {
+            box-shadow: 0 15px 30px rgba(244, 63, 94, 0.2);
+        }
+        .project-card-horizontal[data-project="4"]:hover {
+            box-shadow: 0 15px 30px rgba(107, 167, 165, 0.2);
+        }
+        .project-card-horizontal[data-project="5"]:hover {
+            box-shadow: 0 15px 30px rgba(136, 156, 255, 0.2);
+        }
+        
+        /* Project-specific title colors */
+        .project-card-horizontal[data-project="1"] h3 {
+            background: linear-gradient(135deg, #3B82F6, #3B82F6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .project-card-horizontal[data-project="2"] h3 {
+            background: linear-gradient(135deg, #FE72A9, #C6DF76);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .project-card-horizontal[data-project="3"] h3 {
+            background: linear-gradient(135deg, #F43F5E, #891336);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .project-card-horizontal[data-project="4"] h3 {
+            background: linear-gradient(135deg, #6BA7A5, #6BA7A5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .project-card-horizontal[data-project="5"] h3 {
+            background: linear-gradient(135deg, #889CFF, #4460E9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Project-specific tag colors */
+        .project-card-horizontal[data-project="1"] .project-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+        }
+        
+        .project-card-horizontal[data-project="2"] .project-tag {
+            background: rgba(254, 114, 169, 0.1);
+            color: #FE72A9;
+        }
+        
+        .project-card-horizontal[data-project="3"] .project-tag {
+            background: rgba(244, 63, 94, 0.1);
+            color: #F43F5E;
+        }
+        
+        .project-card-horizontal[data-project="4"] .project-tag {
+            background: rgba(107, 167, 165, 0.1);
+            color: #6BA7A5;
+        }
+        
+        .project-card-horizontal[data-project="5"] .project-tag {
+            background: rgba(136, 156, 255, 0.1);
+            color: #4460E9;
+        }
+        
+        .project-card-image {
+            flex: 0.8;
+            height: 280px;
             background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: #333;
             overflow: hidden;
         }
         
-        .project-image img {
+        .project-card-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .project-card-content {
+            flex: 1.2;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .project-card-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-card-content p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        /* Alternate layout for even cards (image on right) */
+        .project-card-horizontal.reverse {
+            flex-direction: row-reverse;
         }
         
         /* Navigation styles */
@@ -172,17 +279,17 @@
         }
         
         .animate-in {
-        opacity: 0;
+            opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 0.6s forwards;
         }
         
-        .delay-1 { animation-delay: 0.s; }
+        .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
         
-        /* Project detail modal */
+        /* Project detail modal - ORIGINAL SIMPLE DESIGN */
         .project-modal {
             position: fixed;
             top: 0;
@@ -244,7 +351,7 @@
             background: #eeeeee;
         }
         
-        /* Modal image container - FIXED SIZING */
+        /* Modal image container */
         .modal-image-container {
             position: relative;
             overflow: hidden;
@@ -252,7 +359,7 @@
         }
         
         .modal-image {
-            height: 300px; /* Slightly increased for better viewing */
+            height: 300px;
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -291,7 +398,49 @@
             transform: scale(1.1);
         }
         
-        /* New Popup Page for Images - COMPLETELY REDESIGNED */
+        /* Description styles */
+        #modal-description {
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+        
+        #modal-description p {
+            margin-bottom: 1rem;
+        }
+        
+        #modal-description ul, #modal-description ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        #modal-description li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-tech-list, .modal-features-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .modal-tech-list li, .modal-features-list li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .modal-tech-list li:before, .modal-features-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4a4a4a;
+        }
+        
+        /* Image Popup Page */
         .image-popup {
             position: fixed;
             top: 0;
@@ -366,29 +515,28 @@
             margin-bottom: 2rem;
         }
         
-        .image-description {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-        }
-        
-        .image-description h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #1a1a1a;
-        }
-        
-        .image-description p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* Mobile responsive fixes */
+        /* Mobile responsive */
         @media (max-width: 768px) {
+            .project-card-horizontal {
+                flex-direction: column !important;
+                margin-bottom: 1.5rem;
+            }
+            
+            .project-card-image {
+                height: 200px;
+                flex: none;
+            }
+            
+            .project-card-content {
+                padding: 1.5rem;
+            }
+            
+            .project-card-content h3 {
+                font-size: 1.5rem;
+            }
+            
             .modal-image {
-                height: 200px; /* Adjusted for mobile */
+                height: 200px;
             }
             
             .expand-image-btn {
@@ -421,26 +569,12 @@
                 border-radius: 8px;
             }
             
-            .image-description {
-                padding: 1rem;
-            }
-            
-            .image-description h3 {
-                font-size: 1.1rem;
-            }
-            
-            /* Mobile project images */
-            .project-image {
-                height: 220px; /* Slightly smaller on mobile but still larger than original */
-            }
-            
-            /* Adjust matrix effect on mobile */
             .matrix-layla {
                 font-size: clamp(2.5rem, 7vw, 4rem);
             }
         }
         
-        /* Header with hamburger menu */
+        /* Header styles */
         header {
             position: fixed;
             top: 0;
@@ -511,15 +645,6 @@
             border-bottom: 1px solid #eee;
         }
         
-        .mobile-nav a:hover {
-            padding-left: 1rem;
-        }
-
-        .bg-green-100 { background-color: #dcfce7; }
-        .text-green-700 { color: #15803d; }
-        .bg-red-100 { background-color: #fee2e2; }
-        .text-red-700 { color: #b91c1c; }
-        
         .overlay {
             position: fixed;
             top: 0;
@@ -538,30 +663,7 @@
             visibility: visible;
         }
         
-        /* Project detail styles */
-        .modal-body {
-            padding: 2rem;
-        }
-        
-        .modal-tech-list, .modal-features-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .modal-tech-list li, .modal-features-list li {
-            padding: 0.3rem 0;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .modal-tech-list li:before, .modal-features-list li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #4a4a4a;
-        }
-        
-        /* Scroll progress indicator */
+        /* Scroll progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -599,74 +701,7 @@
             transform: scale(1.3);
         }
         
-        .contact-icon-group {
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-            margin: -0.5rem;
-        }
-        
-        /* Scroll down indicator */
-        .scroll-down {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #4a4a4a;
-            opacity: 0.7;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
-            40% {transform: translateY(-20px) translateX(-50%);}
-            60% {transform: translateY(-10px) translateX(-50%);}
-        }
-        
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .hero-text {
-                font-size: 2.5rem;
-            }
-            
-            .page-section {
-                padding: 5rem 1.5rem 2rem;
-            }
-            
-            .project-modal {
-                padding: 1rem;
-            }
-            
-            .modal-body {
-                padding: 1.5rem;
-            }
-            
-            .nav-dots {
-                display: none;
-            }
-            
-            .scroll-down {
-                display: none;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .hamburger {
-                display: none;
-            }
-            
-            .desktop-nav {
-                display: flex;
-                gap: 2rem;
-            }
-            
-            .mobile-nav {
-                display: none;
-            }
-        }
-        
+        /* Social circles */
         .social-circle {
             display: flex;
             align-items: center;
@@ -681,9 +716,9 @@
         }
 
         .social-circle.instagram {
-    background-color: #E4405F; /* Instagram's brand color */
-    color: white;
-}
+            background-color: #E4405F;
+            color: white;
+        }
 
         .social-circle:hover {
             transform: translateY(-5px);
@@ -704,13 +739,28 @@
             background-color: #333;
             color: white;
         }
+        
+        .bg-green-100 { background-color: #dcfce7; }
+        .text-green-700 { color: #15803d; }
+        .bg-red-100 { background-color: #fee2e2; }
+        .text-red-700 { color: #b91c1c; }
+        .hidden { display: none; }
+        
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+            
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-white">
-    <!-- Scroll progress indicator -->
     <div class="scroll-progress"></div>
     
-    <!-- Navigation dots -->
     <div class="nav-dots">
         <div class="nav-dot active" data-section="home"></div>
         <div class="nav-dot" data-section="projects"></div>
@@ -718,27 +768,19 @@
         <div class="nav-dot" data-section="contact"></div>
     </div>
 
-    <!-- Header with Navigation -->
     <header>
         <div class="logo" data-section="home">Layla.</div>
-        
         <nav class="desktop-nav">
             <div class="nav-item" data-section="home">Home</div>
             <div class="nav-item" data-section="projects">Projects</div>
             <div class="nav-item" data-section="about">About</div>
             <div class="nav-item" data-section="contact">Contact</div>
         </nav>
-        
-        <button class="hamburger">
-            <i class="fas fa-bars"></i>
-        </button>
+        <button class="hamburger"><i class="fas fa-bars"></i></button>
     </header>
 
-    <!-- Mobile Navigation -->
     <nav class="mobile-nav">
-        <button class="close-btn">
-            <i class="fas fa-times"></i>
-        </button>
+        <button class="close-btn"><i class="fas fa-times"></i></button>
         <div class="nav-item" data-section="home">Home</div>
         <div class="nav-item" data-section="projects">Projects</div>
         <div class="nav-item" data-section="about">About</div>
@@ -762,229 +804,167 @@
                 </button>
             </div>
         </div>
-        
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects Section - STACKED/HORIZONTAL LAYOUT with COLORS -->
     <section id="projects" class="page-section">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-10 animate-in">My Projects</h2>
+        <div class="projects-container">
+            <h2 class="text-4xl font-bold mb-4 animate-in">My Projects</h2>
             <p class="text-lg text-gray-600 max-w-3xl mb-12 animate-in delay-1">
                 Here's a selection of my recent work. Each project represents a unique challenge and creative solution.
             </p>
             
-            <div class="project-grid">
-                <!-- Project 1 -->
-                <div class="project-card animate-in" data-project="1">
-                    <div class="project-image">
-                        <img src="imgs/behance-detail.png" alt="Behance Project">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">SaaS Habit Tracker App Concept</h3>
-                        <p class="text-gray-600">A clean interface design for a SaaS application</p>
+            <!-- Project 1 - Blue -->
+            <div class="project-card-horizontal animate-in" data-project="1">
+                <div class="project-card-image">
+                    <img src="imgs/behance-detail.png" alt="SaaS Habit Tracker">
+                </div>
+                <div class="project-card-content">
+                    <h3>SaaS Habit Tracker App Concept</h3>
+                    <p>A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">UI/UX</span>
+                        <span class="project-tag">App Design</span>
                     </div>
                 </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card animate-in delay-1" data-project="2">
-                    <div class="project-image">
-                        <img src="imgs/Cover.png" alt="Behance Project">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">ComicPot</h3>
-                        <p class="text-gray-600">Mobile Reading experience with intuitive UI</p>
+            </div>
+            
+            <!-- Project 2 - Pink + Green Gradient (Reverse layout) -->
+            <div class="project-card-horizontal reverse animate-in delay-1" data-project="2">
+                <div class="project-card-image">
+                    <img src="imgs/Cover.png" alt="ComicPot">
+                </div>
+                <div class="project-card-content">
+                    <h3>ComicPot</h3>
+                    <p>ComicPot is a mobile app designed for comic, manga, and manhwa enthusiasts. It offers a smooth reading experience with features like seamless onboarding, smart discovery, and a personalized library.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">AI</span>
+                        <span class="project-tag">Mobile App</span>
                     </div>
                 </div>
-                
-                <!-- NEW PROJECT 3 - Website Project -->
-                <div class="project-card animate-in delay-2" data-project="3">
-                    <div class="project-image">
-                       <img src="imgs/Rose-cover.png" alt="Website Project">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Baked Rose</h3>
-                        <p class="text-gray-600">A Responsive digital bakery that feels like home baking</p>
+            </div>
+            
+            <!-- Project 3 - Rose + Burgundy Gradient -->
+            <div class="project-card-horizontal animate-in delay-2" data-project="3">
+                <div class="project-card-image">
+                    <img src="imgs/Rose-cover.png" alt="Baked Rose">
+                </div>
+                <div class="project-card-content">
+                    <h3>Baked Rose</h3>
+                    <p>A responsive recipe platform where Razan shares her home baking creations. Features smart admin tools, beautiful recipe browsing, and a warm, pink-themed design that makes every recipe feel oven-fresh.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">PHP</span>
+                        <span class="project-tag">Tailwind CSS</span>
+                        <span class="project-tag">MySQL</span>
                     </div>
                 </div>
-                
-                <!-- <div class="project-card animate-in delay-3" data-project="4">
-                    <div class="project-image">
-                        <i class="fas fa-palette"></i>
+            </div>
+            
+            <!-- Project 4 - Mint/Teal (Reverse layout) -->
+            <div class="project-card-horizontal reverse animate-in delay-2" data-project="4">
+                <div class="project-card-image">
+                    <img src="imgs/fincover.png" alt="Finance Tracker">
+                </div>
+                <div class="project-card-content">
+                    <h3>Finance Tracker</h3>
+                    <p>Finance Tracker is a financial management concept created to facilitate a seamless and stress-free user experience. Your money, crystal clear. See balance, transfers, and withdrawals at a glance.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">Finance</span>
+                        <span class="project-tag">Dashboard</span>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Art Direction</h3>
-                        <p class="text-gray-600">Visual identity for a tech startup</p>
+                </div>
+            </div>
+            
+            <!-- Project 5 - Lavender + Deep Blue Gradient -->
+            <div class="project-card-horizontal animate-in delay-3" data-project="5">
+                <div class="project-card-image">
+                    <img src="imgs/catMOODZ-cover.png" alt="catMOODZ">
+                </div>
+                <div class="project-card-content">
+                    <h3>catMOODZ – Your Daily Mood Companion</h3>
+                    <p>A playful and interactive mobile app designed to help users track, understand, and improve their emotional wellbeing in a fun and engaging way.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">Mental Health</span>
+                        <span class="project-tag">Mobile App</span>
+                        <span class="project-tag">UI/UX</span>
                     </div>
-                </div> -->
-                
-                
-                <!-- <div class="project-card animate-in" data-project="5">
-                    <div class="project-image">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Data Visualization</h3>
-                        <p class="text-gray-600">Interactive dashboard for analytics</p>
-                    </div>
-                </div> -->
-                
-                
-                <!--  <div class="project-card animate-in delay-1" data-project="6">
-                    <div class="project-image">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Photography Portfolio</h3>
-                        <p class="text-gray-600">Showcase for a professional photographer</p>
-                    </div>
-                </div> -->
-               
+                </div>
             </div>
         </div>
     </section>
 
-  <!-- About Section -->
-<section id="about" class="page-section">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold mb-10 animate-in">About Me</h2>
-        <div class="grid md:grid-cols-2 gap-12">
-            <!-- Left Column - Text -->
-            <div class="animate-in delay-1">
-                <p class="text-lg mb-6">
-                    I'm a designer and developer with a passion for creating intuitive, beautiful digital experiences.
-                </p>
-                <p class="text-lg mb-6">
-                    My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.
-                </p>
-                <p class="text-lg mb-8">
-                    When I'm not designing, I'm diving into AI, exploring new tech tools, or just chilling with music or a good series.
-                </p>
-            </div>
-            
-            <!-- Right Column - Skills -->
-            <div class="animate-in delay-2">
-                <div class="md:mt-0">
+    <!-- About Section -->
+    <section id="about" class="page-section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 animate-in">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="animate-in delay-1">
+                    <p class="text-lg mb-6">I'm a designer and developer with a passion for creating intuitive, beautiful digital experiences.</p>
+                    <p class="text-lg mb-6">My approach combines aesthetic sensibility with technical expertise to build solutions that are both visually appealing and highly functional.</p>
+                    <p class="text-lg mb-8">When I'm not designing, I'm diving into AI, exploring new tech tools, or just chilling with music or a good series.</p>
+                </div>
+                <div class="animate-in delay-2">
                     <h3 class="text-xl font-semibold mb-4">Skills</h3>
                     <div class="space-y-6">
-                        <div>
-                            <p class="mb-2">UI/UX Design</p>
-                            <div class="h-2 bg-gray-200 rounded-full">
-                                <div class="h-2 bg-black rounded-full w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2">Figma</p>
-                            <div class="h-2 bg-gray-200 rounded-full">
-                                <div class="h-2 bg-black rounded-full w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2">Shopify</p>
-                            <div class="h-2 bg-gray-200 rounded-full">
-                                <div class="h-2 bg-black rounded-full w-4/5"></div>
-                            </div>
-                        </div>
+                        <div><p class="mb-2">UI/UX Design</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
+                        <div><p class="mb-2">Figma</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
+                        <div><p class="mb-2">Shopify</p><div class="h-2 bg-gray-200 rounded-full"><div class="h-2 bg-black rounded-full w-4/5"></div></div></div>
                     </div>
-                </div>
-                
-                <!-- Resume Button -->
-                <div class="animate-in delay-3 mt-8 text-center md:text-left">
-                    <a href="resume/Layla Abdulrahman.pdf" target="_blank" class="bg-black text-white px-8 py-3 rounded-full font-medium inline-block">
-                        View My Resume <i class="ml-2 fas fa-external-link-alt"></i>
-                    </a>
+                    <div class="mt-8 text-center md:text-left">
+                        <a href="resume/Layla Abdulrahman.pdf" target="_blank" class="bg-black text-white px-8 py-3 rounded-full font-medium inline-block">View My Resume <i class="ml-2 fas fa-external-link-alt"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-      <!-- Contact Section -->
-<section id="contact" class="page-section bg-gray-50">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold mb-10 animate-in">Get In Touch</h2>
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="animate-in delay-1">
-                <p class="text-lg mb-6">
-                    Have a project in mind or just want to say hello? Feel free to reach out!
-                </p>
-                
-                <div class="space-y-4">
-                    <div class="flex items-center">
-    <div class="bg-gray-100 p-3 rounded-full mr-4 contact-icon">
-        <i class="fas fa-envelope text-black"></i>
-    </div>
-    <div>
-        <p class="font-medium">Email</p>
-        <a href="mailto:laylabdelrahman20@gmail.com" class="text-gray-600 hover:text-blue-600 transition-colors">
-            laylabdelrahman20@gmail.com
-        </a>
-    </div>
-</div>
-                    <div class="flex items-center">
-                        <div class="bg-gray-100 p-3 rounded-full mr-4 contact-icon">
-                            <i class="fas fa-phone text-black"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium">Phone</p>
-                            <p class="text-gray-600">+961 76 304 363</p>
-                        </div>
+    <!-- Contact Section -->
+    <section id="contact" class="page-section bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-10 animate-in">Get In Touch</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="animate-in delay-1">
+                    <p class="text-lg mb-6">Have a project in mind or just want to say hello? Feel free to reach out!</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center"><div class="bg-gray-100 p-3 rounded-full mr-4"><i class="fas fa-envelope text-black"></i></div><div><p class="font-medium">Email</p><a href="mailto:laylabdelrahman20@gmail.com" class="text-gray-600 hover:text-blue-600">laylabdelrahman20@gmail.com</a></div></div>
+                        <div class="flex items-center"><div class="bg-gray-100 p-3 rounded-full mr-4"><i class="fas fa-phone text-black"></i></div><div><p class="font-medium">Phone</p><p class="text-gray-600">+961 76 304 363</p></div></div>
+                        <div class="pt-4"><div class="flex space-x-5">
+                            <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" target="_blank" class="social-circle linkedin"><i class="fab fa-linkedin-in text-lg"></i></a>
+                            <a href="https://www.behance.net/laylaabdulrahman" target="_blank" class="social-circle behance"><i class="fab fa-behance text-lg"></i></a>
+                            <a href="https://github.com/Laylabdelrahman" target="_blank" class="social-circle github"><i class="fab fa-github text-lg"></i></a>
+                            <a href="https://www.instagram.com/__lxdesign/" target="_blank" class="social-circle instagram"><i class="fab fa-instagram text-lg"></i></a>
+                        </div></div>
                     </div>
-                    
-                    <!-- Social Media Buttons -->
-<div class="pt-4">
-    <div class="flex space-x-5">
-        <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" target="_blank" class="social-circle linkedin">
-            <i class="fab fa-linkedin-in text-lg"></i>
-        </a>
-        <a href="https://www.behance.net/laylaabdulrahman" target="_blank" class="social-circle behance">
-            <i class="fab fa-behance text-lg"></i>
-        </a>
-        <a href="https://github.com/Laylabdelrahman" target="_blank" class="social-circle github">
-            <i class="fab fa-github text-lg"></i>
-        </a>
-        <a href="https://www.instagram.com/__lxdesign/" target="_blank" class="social-circle instagram">
-            <i class="fab fa-instagram text-lg"></i>
-        </a>
-    </div>
-</div>
+                </div>
+                <div class="animate-in delay-2">
+                    <form id="contact-form" class="space-y-6">
+                        <div><label for="name" class="block mb-2 font-medium">Name</label><input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></div>
+                        <div><label for="email" class="block mb-2 font-medium">Email</label><input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></div>
+                        <div><label for="message" class="block mb-2 font-medium">Message</label><textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></textarea></div>
+                        <button type="submit" id="sendButton" class="bg-black text-white px-6 py-3 rounded-lg font-medium w-full">Send Message</button>
+                        <div id="form-status" class="hidden p-4 rounded-lg text-center"></div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="animate-in delay-2">
-                <form id="contact-form" class="space-y-6">
-                    <div>
-                        <label for="name" class="block mb-2 font-medium">Name</label>
-                        <input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 font-medium">Email</label>
-                        <input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
-                    </div>
-                    <div>
-                        <label for="message" class="block mb-2 font-medium">Message</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"></textarea>
-                    </div>
-                    <button type="submit" id="sendButton" class="bg-black text-white px-6 py-3 rounded-lg font-medium w-full">
-                        Send Message
-                    </button>
-                    <div id="form-status" class="hidden p-4 rounded-lg text-center"></div>
-                </form>
-            </div>
         </div>
-    </div>
-</section>
-     <footer class="bg-black text-white py-8 text-center">
+    </section>
+    
+    <footer class="bg-black text-white py-8 text-center">
         <p>© Designed with <span class="heart">˚ʚ♡ɞ˚</span> by Layla</p>
         <div class="flex justify-center mt-4 space-x-4">
             <a href="https://www.behance.net/laylaabdulrahman" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
             <a href="https://github.com/Laylabdelrahman" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/layla-abdulrahman-a63004376" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-figma"></i></a>
-            
         </div>
     </footer>
     
-    <!-- Project Modal -->
+    <!-- Project Modal - ORIGINAL SIMPLE DESIGN -->
     <div class="project-modal">
         <div class="modal-content">
             <button class="close-modal">&times;</button>
@@ -996,9 +976,9 @@
             </div>
             <div class="modal-body">
                 <h3 class="text-2xl font-bold mb-4" id="modal-title">Project Title</h3>
-                <p class="text-lg mb-6" id="modal-description">
+                <div class="text-lg mb-6" id="modal-description">
                     Project description will appear here.
-                </p>
+                </div>
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <h4 class="font-semibold mb-3 text-lg">Technologies</h4>
@@ -1024,7 +1004,7 @@
         </div>
     </div>
 
-    <!-- New Image Popup Page -->
+    <!-- Image Popup Page -->
     <div class="image-popup">
         <div class="image-popup-header">
             <h2 class="image-popup-title">Minimal UI Design</h2>
@@ -1032,16 +1012,14 @@
         </div>
         <div class="image-popup-content">
             <img id="popup-image" class="popup-image" src="" alt="Project details">
-            
         </div>
     </div>
 
     <script>
-        // Arabic Matrix Effect for Layla Text
+        // Matrix effect and particles
         const matrixLayla = document.getElementById('matrixLayla');
         const heroParticles = document.getElementById('heroParticles');
         
-        // Create floating particles for hero section
         function createParticles() {
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
@@ -1052,61 +1030,43 @@
                     particle.style.animationDelay = Math.random() * 6 + 's';
                     particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
                     heroParticles.appendChild(particle);
-                    
-                    setTimeout(() => {
-                        if (particle.parentNode) {
-                            particle.remove();
-                        }
-                    }, 8000);
+                    setTimeout(() => { if (particle.parentNode) particle.remove(); }, 8000);
                 }, i * 100);
             }
         }
-        
         setInterval(createParticles, 3000);
         createParticles();
         
-        // Arabic Matrix effect - Using only Layla's letters
         function createMatrixRain() {
-            const chars = 'ليلىلىليىلليىل'; // Only the letters from "Layla" in Arabic
-            
-            const matrixInterval = setInterval(() => {
+            const chars = 'ليلىلىليىلليىل';
+            setInterval(() => {
                 const randomChar = chars[Math.floor(Math.random() * chars.length)];
                 const originalText = matrixLayla.textContent;
                 const randomIndex = Math.floor(Math.random() * originalText.length);
-                
-                if (Math.random() < 0.15) { // 15% chance to change a character
+                if (Math.random() < 0.15) {
                     const newText = originalText.split('');
                     newText[randomIndex] = randomChar;
                     matrixLayla.textContent = newText.join('');
-                    
-                    setTimeout(() => {
-                        matrixLayla.textContent = 'Layla';
-                    }, 150);
+                    setTimeout(() => { matrixLayla.textContent = 'Layla'; }, 150);
                 }
             }, 80);
         }
-        
-        // Start the matrix effect
         createMatrixRain();
-        
-        // Click to restart effect
         matrixLayla.addEventListener('click', () => {
             matrixLayla.style.animation = 'none';
-            setTimeout(() => {
-                matrixLayla.style.animation = 'matrix-flicker 1s infinite';
-            }, 10);
+            setTimeout(() => { matrixLayla.style.animation = 'matrix-flicker 1s infinite'; }, 10);
         });
 
-        // Project data - updated to include separate preview and modal images
+        // Project data
         const projects = {
             1: {
                 title: "SaaS Habit Tracker App Concept",
                 description: "A clean and intuitive interface design for a SaaS application focused on user productivity and experience. This project involved extensive user research and multiple iterations to create a visually appealing yet highly functional interface.",
                 technologies: ["Figma"],
                 features: ["Responsive Design", "User-Friendly Navigation", "Consistent Design System"],
-                previewImg: "imgs/behance-detail.png", // Same cover image for both
-                modalImg: "imgs/behance-detail.png", // Use the same image for consistency
-                fullImg: "imgs/behance.png", // Full detail image for popup
+                previewImg: "imgs/behance-detail.png",
+                modalImg: "imgs/behance-detail.png",
+                fullImg: "imgs/behance.png",
                 link: "https://www.behance.net/gallery/234745311/Momentum-Habit-Tracker-App"
             },
             2: {
@@ -1114,9 +1074,9 @@
                 description: "ComicPot is a mobile app designed for comic, manga, and manhwa enthusiasts. It offers a smooth reading experience with features like seamless onboarding, smart discovery, a personalized library, detailed reader stats, and a reward system with coins to unlock more chapters.",
                 technologies: ["Figma", "AI"],
                 features: ["User Profiles", "Coins shop", "Payment Processing", "Reading Streak"],
-                previewImg: "imgs/Cover.png", // Same cover image for both
-                modalImg: "imgs/Cover.png", // Use the same image for consistency
-                fullImg: "imgs/ComicPot.png", // Full detail image for popup
+                previewImg: "imgs/Cover.png",
+                modalImg: "imgs/ComicPot.png",
+                fullImg: "imgs/ComicPot.png",
                 link: "https://www.behance.net/gallery/235352771/ComicPot"
             },
             3: {
@@ -1124,74 +1084,63 @@
                 description: "A responsive recipe platform where Razan shares her home baking creations. Features smart admin tools for her, beautiful recipe browsing for visitors, and a warm, pink-themed design that makes every recipe feel oven-fresh.",
                 technologies: ["Figma", "PHP", "HTML", "JavaScript", "Tailwind CSS", "MySQL"],
                 features: ["Responsive Design", "Easy navigation", "Smart Role Switching", "Instant Comment Kitchen"],
-                previewImg: "imgs/Rose-cover.png", // Same cover image for both
-                modalImg: "imgs/Rose-cover.png", // Use the same image for consistency
-                fullImg: "imgs/Baked-Rose.png", // Full detail image for popup
-                websiteLink: "https://baked-rose.lovestoblog.com/?i=1" // Add this property for website projects
+                previewImg: "imgs/Rose-cover.png",
+                modalImg: "imgs/Baked-Rose.png",
+                fullImg: "imgs/Baked-Rose.png",
+                link: "https://www.behance.net/gallery/235747255/Baked-Rose"
             },
             4: {
-                title: "Art Direction",
-                description: "Visual identity design for a tech startup including logo, color palette, typography, and brand guidelines. The project helped establish a cohesive brand presence across all platforms.",
-                technologies: ["Adobe Illustrator", "Photoshop", "InDesign", "After Effects"],
-                features: ["Logo Design", "Brand Guidelines", "Marketing Materials", "Social Media Assets"],
-                icon: "fas fa-palette",
+                title: "Finance Tracker",
+                description: "Finance Tracker is a financial management concept created to facilitate a seamless and stress-free user experience.",
+                technologies: ["Figma"],
+                features: ["One-Click Financial Overview", "Simple & Intuitive UI", "Clear Income vs Expense Breakdown", "Financial Awareness Design"],
+                previewImg: "imgs/fincover.png",
+                modalImg: "imgs/fincover.png",
+                fullImg: "imgs/Finance tracker.png",
                 link: "#"
             },
             5: {
-                title: "Data Visualization",
-                description: "An interactive dashboard for analytics that helps businesses make data-driven decisions. The dashboard features real-time data updates, customizable reports, and export functionality.",
-                technologies: ["D3.js", "React", "Python", "Chart.js"],
-                features: ["Real-time Updates", "Custom Reports", "Data Export", "User Permissions"],
-                icon: "fas fa-chart-line",
-                link: "#"
-            },
-            6: {
-                title: "Photography Portfolio",
-                description: "A showcase website for a professional photographer featuring a minimalist design that puts the focus on the imagery. The site includes filtering by category, full-screen lightbox viewing, and client proofing capabilities.",
-                technologies: ["JavaScript", "CSS Grid", "Lightbox JS", "PHP"],
-                features: ["Category Filtering", "Full-screen Lightbox", "Client Proofing", "Contact Form"],
-                icon: "fas fa-camera",
+                title: "catMOODZ – Your Daily Mood Companion",
+                description: `
+                    <p>catMOODZ is a playful and interactive mobile app designed to help users track, understand, and improve their emotional wellbeing in a fun and engaging way.</p>
+                    <ul>
+                        <li>Each day, users log their mood through a simple and enjoyable check-in experience, followed by personalized action suggestions tailored to how they feel.</li>
+                        <li>The app includes daily reflective questions that encourage self-awareness and make mood tracking more meaningful and consistent.</li>
+                        <li>A dedicated Insights Page provides a clear summary of mood patterns over the week and month, showing emotional trends and past suggestions.</li>
+                        <li>An Actions Page lets users explore all recommended activities with a filter system to easily find what they need (relax, focus, energy boost, etc.).</li>
+                    </ul>
+                    <p>With its cute and interactive design, catMOODZ turns self-care into a daily habit users actually enjoy.</p>
+                `,
+                technologies: ["Figma"],
+                features: ["Daily Mood Check-In", "Personalized Action Suggestions", "Mood Insights Dashboard", "Smart Actions Library with Filters"],
+                previewImg: "imgs/catMOODZ-cover.png",
+                modalImg: "imgs/catMOODZ-cover.png",
+                fullImg: "imgs/catMOODZ.png",
                 link: "#"
             }
         };
 
-        // Initialize EmailJS with your Public Key
-        (function() {
-            try {
-                emailjs.init("19wqjbVwEGU-r_1BZ");
-                console.log("EmailJS initialized successfully");
-                console.log("Using Service ID: service_y71r60a");
-                console.log("Using Template ID: template_ymr1fw4");
-            } catch (error) {
-                console.error("EmailJS initialization failed:", error);
-            }
-        })();
+        // EmailJS initialization
+        (function() { try { emailjs.init("19wqjbVwEGU-r_1BZ"); } catch(error) { console.error("EmailJS init failed:", error); } })();
 
-        // Function to open image popup page
+        // Function to open image popup
         function openImagePopup(imageUrl, projectTitle) {
             const imagePopup = document.querySelector('.image-popup');
             const popupImage = document.getElementById('popup-image');
             const popupTitle = document.querySelector('.image-popup-title');
-            
-            // Set the title
             popupTitle.textContent = projectTitle;
-            
-            // Set the image source
             popupImage.src = imageUrl;
-            
-            // Show the popup
             imagePopup.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // Function to close image popup
         function closeImagePopup() {
             const imagePopup = document.querySelector('.image-popup');
             imagePopup.classList.remove('active');
-            document.body.style.overflow = 'hidden'; // Keep hidden because modal might still be open
+            document.body.style.overflow = 'auto';
         }
 
-        // Function to open project modal with data
+        // Function to open project modal - ORIGINAL SIMPLE DESIGN
         function openProjectModal(projectId) {
             const project = projects[projectId];
             if (!project) return;
@@ -1201,43 +1150,36 @@
             const modalImageUrl = project.modalImg || project.previewImg;
             const modalLink = document.getElementById('modal-link');
             
-            // Set modal content
             document.getElementById('modal-title').textContent = project.title;
-            document.getElementById('modal-description').textContent = project.description;
+            const descriptionElement = document.getElementById('modal-description');
+            descriptionElement.innerHTML = project.description;
             
-            // Check if this is a website project and update the button text accordingly
-            if (project.websiteLink) {
-                modalLink.setAttribute('href', project.websiteLink);
-                modalLink.innerHTML = 'View Website Online <i class="ml-2 fas fa-external-link-alt"></i>';
-            } else {
+            if (project.link && project.link !== '#') {
                 modalLink.setAttribute('href', project.link);
                 modalLink.innerHTML = 'View Project on Behance <i class="ml-2 fas fa-arrow-right"></i>';
+                modalLink.style.display = 'inline-block';
+            } else {
+                modalLink.style.display = 'none';
             }
             
             if (modalImageUrl) {
-                // Use the modal-specific image with proper sizing
                 modalImage.style.background = `url('${modalImageUrl}') center/contain no-repeat`;
                 modalImage.style.backgroundColor = '#f8f8f8';
                 modalImage.setAttribute('data-full-image', project.fullImg || modalImageUrl);
                 modalImage.innerHTML = '';
-                
-                // Show expand button
                 expandImageBtn.style.display = 'flex';
                 
-                // Add click event to modal image for expansion - opens new popup page
                 modalImage.onclick = function() {
                     const fullImageUrl = project.fullImg || modalImageUrl;
                     openImagePopup(fullImageUrl, project.title);
                 };
                 
-                // Add click event to expand button
                 expandImageBtn.onclick = function(e) {
                     e.stopPropagation();
                     const fullImageUrl = project.fullImg || modalImageUrl;
                     openImagePopup(fullImageUrl, project.title);
                 };
             } else {
-                // Fall back to icon if no images available
                 modalImage.style.background = 'linear-gradient(45deg, #e0e0e0, #f0f0f0)';
                 modalImage.style.display = 'flex';
                 modalImage.style.alignItems = 'center';
@@ -1246,12 +1188,9 @@
                 modalImage.style.color = '#333';
                 modalImage.innerHTML = `<i class="${project.icon}"></i>`;
                 modalImage.onclick = null;
-                
-                // Hide expand button
                 expandImageBtn.style.display = 'none';
             }
             
-            // Set technologies list
             const techList = document.getElementById('modal-technologies');
             techList.innerHTML = '';
             project.technologies.forEach(tech => {
@@ -1260,7 +1199,6 @@
                 techList.appendChild(li);
             });
             
-            // Set features list
             const featuresList = document.getElementById('modal-features');
             featuresList.innerHTML = '';
             project.features.forEach(feature => {
@@ -1269,240 +1207,110 @@
                 featuresList.appendChild(li);
             });
             
-            // Show modal
-            const projectModal = document.querySelector('.project-modal');
-            projectModal.classList.add('active');
+            const modal = document.querySelector('.project-modal');
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
+        function closeModal() {
+            const modal = document.querySelector('.project-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
 
+        // DOM Content Loaded
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.page-section');
             const navItems = document.querySelectorAll('.nav-item');
-            const buttons = document.querySelectorAll('button[data-section]');
             const navDots = document.querySelectorAll('.nav-dot');
             const logo = document.querySelector('.logo');
             const progressBar = document.querySelector('.scroll-progress');
-            
-            // Project modal functionality
-            const projectCards = document.querySelectorAll('.project-card');
+            const projectCards = document.querySelectorAll('.project-card-horizontal');
+            const closeModalBtn = document.querySelector('.close-modal');
             const projectModal = document.querySelector('.project-modal');
-            const closeModal = document.querySelector('.close-modal');
-            
-            // Image popup functionality
-            const imagePopup = document.querySelector('.image-popup');
             const closePopupBtn = document.querySelector('.close-popup');
+            const imagePopup = document.querySelector('.image-popup');
             
-            // Function to scroll to section
             function scrollToSection(sectionId) {
                 const section = document.getElementById(sectionId);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                    updateActiveNav(sectionId);
-                }
-                
-                // Close mobile nav if open
+                if (section) { section.scrollIntoView({ behavior: 'smooth' }); updateActiveNav(sectionId); }
                 closeMobileNav();
             }
             
-            // Update active navigation
             function updateActiveNav(sectionId) {
-                // Update nav items
-                navItems.forEach(item => {
-                    if (item.getAttribute('data-section') === sectionId) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
-                    }
-                });
-                
-                // Update nav dots
-                navDots.forEach(dot => {
-                    if (dot.getAttribute('data-section') === sectionId) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
+                navItems.forEach(item => { if (item.getAttribute('data-section') === sectionId) item.classList.add('active'); else item.classList.remove('active'); });
+                navDots.forEach(dot => { if (dot.getAttribute('data-section') === sectionId) dot.classList.add('active'); else dot.classList.remove('active'); });
             }
             
-            // Add event listeners to nav items
-            navItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const target = this.getAttribute('data-section');
-                    scrollToSection(target);
-                });
-            });
+            navItems.forEach(item => item.addEventListener('click', () => scrollToSection(item.getAttribute('data-section'))));
+            navDots.forEach(dot => dot.addEventListener('click', () => scrollToSection(dot.getAttribute('data-section'))));
+            logo.addEventListener('click', () => scrollToSection('home'));
             
-            // Add event listeners to buttons
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const target = this.getAttribute('data-section');
-                    scrollToSection(target);
-                });
-            });
-            
-            // Add event listeners to nav dots
-            navDots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const target = this.getAttribute('data-section');
-                    scrollToSection(target);
-                });
-            });
-            
-            // Add event listener to logo
-            logo.addEventListener('click', function() {
-                scrollToSection('home');
-            });
-            
-            // Scroll progress indicator
-            window.addEventListener('scroll', function() {
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollPercent = (scrollTop / documentHeight) * 100;
-                
-                progressBar.style.width = scrollPercent + '%';
-                
-                // Update active section based on scroll position
-                let currentSection = '';
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+                let current = '';
                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    
-                    if (scrollTop >= sectionTop - 100 && scrollTop < sectionTop + sectionHeight - 100) {
-                        currentSection = section.getAttribute('id');
-                    }
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollTop >= top - 100 && scrollTop < top + height - 100) current = section.id;
                 });
-                
-                if (currentSection) {
-                    updateActiveNav(currentSection);
-                }
+                if (current) updateActiveNav(current);
             });
             
-            // Project card click events
-            projectCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const projectId = this.getAttribute('data-project');
-                    openProjectModal(projectId);
-                });
-            });
-            
-            // Close modal button
-            closeModal.addEventListener('click', function() {
-                projectModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modal when clicking outside
-            projectModal.addEventListener('click', function(e) {
-                if (e.target === projectModal) {
-                    projectModal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Close image popup button
+            projectCards.forEach(card => card.addEventListener('click', () => openProjectModal(card.getAttribute('data-project'))));
+            closeModalBtn.addEventListener('click', closeModal);
+            projectModal.addEventListener('click', (e) => { if (e.target === projectModal) closeModal(); });
             closePopupBtn.addEventListener('click', closeImagePopup);
+            imagePopup.addEventListener('click', (e) => { if (e.target === imagePopup) closeImagePopup(); });
             
-            // Close image popup when clicking outside
-            imagePopup.addEventListener('click', function(e) {
-                if (e.target === imagePopup) {
-                    closeImagePopup();
-                }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && imagePopup.classList.contains('active')) closeImagePopup();
+                if (e.key === 'Escape' && projectModal.classList.contains('active')) closeModal();
             });
             
-            // Close with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
-                    closeImagePopup();
-                }
-                if (e.key === 'Escape' && projectModal.classList.contains('active')) {
-                    projectModal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Contact form functionality with EmailJS
+            // Contact form
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
-
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
-                    const submitButton = document.getElementById('sendButton');
-                    const originalText = submitButton.textContent;
-                    
-                    // Show loading state
-                    submitButton.textContent = 'Sending...';
-                    submitButton.disabled = true;
-                    if (formStatus) formStatus.classList.add('hidden');
-                    
-                    // Send email using EmailJS with NEW service and template IDs
+                    const btn = document.getElementById('sendButton');
+                    const original = btn.textContent;
+                    btn.textContent = 'Sending...';
+                    btn.disabled = true;
                     emailjs.sendForm('service_y71r60a', 'template_ymr1fw4', contactForm)
-                        .then(function(response) {
-                            console.log("EmailJS SUCCESS:", response);
-                            // Success message
-                            if (formStatus) {
-                                formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-                                formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-                                formStatus.classList.add('bg-green-100', 'text-green-700');
-                            }
+                        .then(() => {
+                            formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                            formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                            formStatus.classList.add('bg-green-100', 'text-green-700');
                             contactForm.reset();
-                        }, function(error) {
-                            console.error("EmailJS ERROR:", error);
-                            console.log("Error status:", error.status);
-                            console.log("Error text:", error.text);
-                            
-                            // Error message
-                            if (formStatus) {
-                                let errorMessage = 'Oops! There was a problem sending your message.';
-                                if (error.text) {
-                                    errorMessage += ' Error: ' + error.text;
-                                }
-                                formStatus.textContent = errorMessage;
-                                formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
-                                formStatus.classList.add('bg-red-100', 'text-red-700');
-                            }
                         })
-                        .finally(function() {
-                            // Reset button
-                            submitButton.textContent = originalText;
-                            submitButton.disabled = false;
-                            
-                            // Hide status message after 8 seconds
-                            if (formStatus) {
-                                setTimeout(() => {
-                                    formStatus.classList.add('hidden');
-                                }, 8000);
-                            }
+                        .catch((error) => {
+                            formStatus.textContent = 'Oops! There was a problem sending your message.';
+                            formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                            formStatus.classList.add('bg-red-100', 'text-red-700');
+                        })
+                        .finally(() => {
+                            btn.textContent = original;
+                            btn.disabled = false;
+                            setTimeout(() => formStatus.classList.add('hidden'), 8000);
                         });
                 });
             }
             
-            // Mobile navigation functionality
+            // Mobile nav
             const hamburger = document.querySelector('.hamburger');
             const mobileNav = document.querySelector('.mobile-nav');
             const closeBtn = document.querySelector('.close-btn');
             const overlay = document.querySelector('.overlay');
-            
-            function openMobileNav() {
-                mobileNav.classList.add('active');
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeMobileNav() {
-                mobileNav.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            
+            function openMobileNav() { mobileNav.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeMobileNav() { mobileNav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
             hamburger.addEventListener('click', openMobileNav);
             closeBtn.addEventListener('click', closeMobileNav);
             overlay.addEventListener('click', closeMobileNav);
             
-            // Initialize first section as active
             updateActiveNav('home');
         });
     </script>
